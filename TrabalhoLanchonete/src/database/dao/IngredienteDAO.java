@@ -62,25 +62,23 @@ public class IngredienteDAO {
         }
     }
     
-    public List<Ingrediente> consultar (String nomei){
-    	List<Ingrediente> ingredientes = new ArrayList();
+    public Ingrediente consultar (String nomei){
+    	Ingrediente i = new Ingrediente();
     	try {
     		String sql = "select * from ingrediente where nomei = ?";
     		PreparedStatement stmt = connection.prepareStatement(sql);
     		stmt.setString(1, nomei);
     		ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				Ingrediente i = new Ingrediente();
 				i.setNomei(rs.getString("nomei"));
 				i.setQuantidade(rs.getDouble("quantidade"));
 				i.setCusto(rs.getDouble("custo"));
-				ingredientes.add(i);
 			}
 			rs.close();
             stmt.close();
-            return ingredientes;
+            return i;
     	}catch (SQLException e) {
-    		return ingredientes;
+    		return null;
         }	
     }
     

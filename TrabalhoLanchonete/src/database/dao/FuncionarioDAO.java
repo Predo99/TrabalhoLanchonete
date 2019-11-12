@@ -53,27 +53,25 @@ public class FuncionarioDAO {
         }	
     }
     
-    public List<Funcionario> consultar(String cpf) {
-    	List<Funcionario> funcionarios = new ArrayList();
+    public Funcionario consultar(String cpf) {
+    	Funcionario f = new Funcionario();
     	try {
     		String sql = "select * from funcionario where cpf = ?";
     		PreparedStatement stmt = connection.prepareStatement(sql);
     		stmt.setString(1, cpf);
     		ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				Funcionario f = new Funcionario();
 				f.setNomef(rs.getString("nomef"));
 				f.setCpf(rs.getString("cpf"));
 				f.setSenha(rs.getString("senha"));
 				f.setSalario(rs.getDouble("salario"));	
 				f.setGerente(rs.getBoolean("gerente"));
-				funcionarios.add(f);
 			}
 			rs.close();
             stmt.close();
-            return funcionarios;
+            return f;
     	}catch (SQLException e) {
-    		return funcionarios;
+    		return null;
         }	
     }
     

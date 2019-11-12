@@ -21,11 +21,11 @@ public class main {
 		else 
 			System.out.println("Erro ao cadastrar");
 		
-		List<Funcionario> funcionarios = fd.consultar("12345678911");
+		Funcionario funcionario = fd.consultar("12345678911");
 		
-		if(funcionarios.size() > 0)
-			System.out.println(funcionarios.get(0).getNomef() + "," + funcionarios.get(0).getCpf() + "," 
-								+ funcionarios.get(0).getSalario() + "," + funcionarios.get(0).isGerente());
+		if(funcionario != null)
+			System.out.println(funcionario.getNomef() + "," + funcionario.getCpf() + "," 
+								+ funcionario.getSalario() + "," + funcionarios.isGerente());
 		else
 			System.out.println("Funcionário não cadastrado.");
 		 
@@ -51,11 +51,11 @@ public class main {
 		id.cadastrar(i1);
 		id.cadastrar(i2);
 		
-		List<Ingrediente> ingredientes = id.consultar("Coca-Cola lata 300ml");
-		if(ingredientes.size() > 0)
-			System.out.println(ingredientes.get(0).getNomei() + "," 
-								+ ingredientes.get(0).getQuantidade() + "," 
-								+ ingredientes.get(0).getCusto());
+		Ingrediente ingrediente = id.consultar("Coca-Cola lata 300ml");
+		if(ingrediente != null)
+			System.out.println(ingrediente.getNomei() + "," 
+								+ ingrediente.getQuantidade() + "," 
+								+ ingrediente.getCusto());
 		else
 			System.out.println("Ingrediente não cadastrado.");
 		
@@ -63,18 +63,18 @@ public class main {
 		i2.setQuantidade(15);
 		id.atualizar(i2);
 		
-		ingredientes = id.consultar("Coca-Cola lata 300ml");
-		if(ingredientes.size() > 0)
-			System.out.println(ingredientes.get(0).getNomei() + "," 
-								+ ingredientes.get(0).getQuantidade() + "," 
-								+ ingredientes.get(0).getCusto());
+		ingrediente = id.consultar("Coca-Cola lata 300ml");
+		if(ingrediente != null)
+			System.out.println(ingrediente.getNomei() + "," 
+								+ ingrediente.getQuantidade() + "," 
+								+ ingrediente.getCusto());
 		else
 			System.out.println("Ingrediente não cadastrado.");
 		
 		System.out.println("-------------------------");
 		id.atualizar(i2.getNomei(), "custo", 3.0);
 		
-		ingredientes = id.consultar();
+		List<Ingrediente> ingredientes = id.consultar();
 		for(int i = 0; i < ingredientes.size(); i++)
 			System.out.println(ingredientes.get(i).getNomei() + "," 
 								+ ingredientes.get(i).getQuantidade() + "," 
