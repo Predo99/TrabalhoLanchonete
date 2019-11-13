@@ -54,13 +54,14 @@ public class FuncionarioDAO {
     }
     
     public Funcionario consultar(String cpf) {
-    	Funcionario f = new Funcionario();
+    	Funcionario f = null;
     	try {
     		String sql = "select * from funcionario where cpf = ?";
     		PreparedStatement stmt = connection.prepareStatement(sql);
     		stmt.setString(1, cpf);
     		ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
+				f = new Funcionario();
 				f.setNomef(rs.getString("nomef"));
 				f.setCpf(rs.getString("cpf"));
 				f.setSenha(rs.getString("senha"));
@@ -71,7 +72,7 @@ public class FuncionarioDAO {
             stmt.close();
             return f;
     	}catch (SQLException e) {
-    		return null;
+    		return f;
         }	
     }
     

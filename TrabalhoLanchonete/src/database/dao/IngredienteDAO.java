@@ -63,13 +63,14 @@ public class IngredienteDAO {
     }
     
     public Ingrediente consultar (String nomei){
-    	Ingrediente i = new Ingrediente();
+    	Ingrediente i = null;
     	try {
     		String sql = "select * from ingrediente where nomei = ?";
     		PreparedStatement stmt = connection.prepareStatement(sql);
     		stmt.setString(1, nomei);
     		ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
+				i = new Ingrediente();
 				i.setNomei(rs.getString("nomei"));
 				i.setQuantidade(rs.getDouble("quantidade"));
 				i.setCusto(rs.getDouble("custo"));
@@ -78,7 +79,7 @@ public class IngredienteDAO {
             stmt.close();
             return i;
     	}catch (SQLException e) {
-    		return null;
+    		return i;
         }	
     }
     

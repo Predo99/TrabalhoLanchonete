@@ -1,13 +1,16 @@
 package main;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import database.Conexao;
 import database.dao.FuncionarioDAO;
 import database.dao.IngredienteDAO;
+import database.dao.OpcaoDAO;
 import database.models.Funcionario;
 import database.models.Ingrediente;
+import database.models.Opcao;
 
 public class main {
 
@@ -25,7 +28,7 @@ public class main {
 		
 		if(funcionario != null)
 			System.out.println(funcionario.getNomef() + "," + funcionario.getCpf() + "," 
-								+ funcionario.getSalario() + "," + funcionarios.isGerente());
+								+ funcionario.getSalario() + "," + funcionario.isGerente());
 		else
 			System.out.println("Funcionário não cadastrado.");
 		 
@@ -45,9 +48,10 @@ public class main {
 		else
 			System.out.println("Não há funcionários cadastrados.");*/
 		
-		IngredienteDAO id = new IngredienteDAO();
+		
 		Ingrediente i1 = new Ingrediente("Bife de Hamburguer", 10, 5);
 		Ingrediente i2 = new Ingrediente("Coca-Cola lata 300ml", 10, 5);
+		/*IngredienteDAO id = new IngredienteDAO();
 		id.cadastrar(i1);
 		id.cadastrar(i2);
 		
@@ -87,8 +91,46 @@ public class main {
 		for(int i = 0; i < ingredientes.size(); i++)
 			System.out.println(ingredientes.get(i).getNomei() + "," 
 								+ ingredientes.get(i).getQuantidade() + "," 
-								+ ingredientes.get(i).getCusto());
+								+ ingredientes.get(i).getCusto());*/
 		
+		/*OpcaoDAO od = new OpcaoDAO();
+		List<Ingrediente> ingredientes = new ArrayList();
+		ingredientes.add(i1);
+		ingredientes.add(i2);
+		
+		Opcao o1 = new Opcao("Opcao 1", 10.0, null, ingredientes);
+		if(od.cadastrar(o1))
+			System.out.println("Cadastrado com sucesso");
+		else
+			System.out.println("Erro ao cadastrar");
+		
+		List<Opcao> opcoes = od.consultar();
+		for(int i = 0; i < opcoes.size(); i++) {
+			System.out.println(opcoes.get(i).getNomeo() + "," + opcoes.get(i).getPreco());
+			for(int j = 0; j < opcoes.get(i).getIngredientes().size(); j++)
+				System.out.println(opcoes.get(i).getIngredientes().get(j).getNomei());
+			System.out.println("------------------------");
+		}
+		
+		ingredientes.add(i1);
+		Opcao o2 = new Opcao("Opcao 2", 11.0, null, ingredientes);
+		od.cadastrar(o2);
+		o2.setPreco(12);
+		od.atualizar(o2);
+		od.atualizar(o2.getNomeo(), 10);
+		ingredientes.add(i1);
+		od.atualizar(o2.getNomeo(), ingredientes);
+		//od.remover(o2.getNomeo());
+		
+		Opcao o3 = od.consultar("Opcao 2");
+		if(o3 != null) {
+			System.out.println(o3.getNomeo() + "," + o3.getPreco());
+			for(int i = 0; i < o3.getIngredientes().size(); i++)
+				System.out.println(o3.getIngredientes().get(i).getNomei());
+		}else {
+			System.out.println("Opção não cadastrada.");
+		}*/
+			
 	}
 
 }
