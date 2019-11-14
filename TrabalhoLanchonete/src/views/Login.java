@@ -12,6 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import database.dao.FuncionarioDAO;
+import database.models.Funcionario;
+
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -87,7 +91,10 @@ public class Login extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (checkLogin(textUser.getText(), new String(passwordField.getPassword()))) {
+				//Classe FuncionarioDAO para fazer as operações do banco
+				FuncionarioDAO fd = new FuncionarioDAO();
+				Funcionario funcionario = fd.login(textUser.getText(), new String(passwordField.getPassword()));
+				if(funcionario != null) {
 					JOptionPane.showMessageDialog(null, "Login funcionando");
 				} else {
 					JOptionPane.showMessageDialog(null, "Login ou senha incorretos");
