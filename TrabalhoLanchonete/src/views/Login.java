@@ -1,0 +1,114 @@
+package views;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Login extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textUser;
+	private JPasswordField passwordField;
+
+	/**
+	 * Roda a aplicação.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Login frame = new Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Criação de Frame Login.
+	 */
+	public Login() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 720, 436);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.BLACK);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setForeground(Color.GRAY);
+		panel.setBounds(160, 59, 357, 289);
+		contentPane.add(panel);
+		panel.setLayout(null);
+
+		JLabel lblLogin = new JLabel("Login");
+		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblLogin.setBounds(143, 11, 94, 29);
+		panel.add(lblLogin);
+
+		JLabel lblUsurio = new JLabel("Usu\u00E1rio");
+		lblUsurio.setFont(new Font("Arial", Font.BOLD, 16));
+		lblUsurio.setBounds(63, 59, 70, 14);
+		panel.add(lblUsurio);
+
+		textUser = new JTextField();
+		textUser.setForeground(Color.GRAY);
+		textUser.setBounds(63, 84, 222, 29);
+		panel.add(textUser);
+		textUser.setColumns(10);
+
+		JLabel lblSenha = new JLabel("Senha");
+		lblSenha.setFont(new Font("Arial", Font.BOLD, 16));
+		lblSenha.setBounds(63, 131, 54, 14);
+		panel.add(lblSenha);
+
+		passwordField = new JPasswordField();
+		passwordField.setForeground(Color.GRAY);
+		passwordField.setBounds(63, 156, 222, 29);
+		panel.add(passwordField);
+
+		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (checkLogin(textUser.getText(), new String(passwordField.getPassword()))) {
+					JOptionPane.showMessageDialog(null, "Login funcionando");
+				} else {
+					JOptionPane.showMessageDialog(null, "Login ou senha incorretos");
+				}
+			}
+		});
+		btnEntrar.setForeground(Color.WHITE);
+		btnEntrar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnEntrar.setBackground(Color.GREEN);
+		btnEntrar.setBounds(126, 217, 94, 29);
+		panel.add(btnEntrar);
+
+		JLabel imgLogin = new JLabel("");
+		imgLogin.setBounds(76, 11, 618, 375);
+		contentPane.add(imgLogin);
+		imgLogin.setIcon(new ImageIcon(
+				"C:\\Users\\igorw\\eclipse-workspace\\TrabalhoLanchonete\\TrabalhoLanchonete\\src\\views\\icons\\burger.png"));
+	}
+
+	// método teste para verificar se está funcionando o Login
+	public static boolean checkLogin(String login, String senha) {
+		return login.equals("admin") && senha.equals("admin");
+	}
+}

@@ -1,6 +1,5 @@
 package database.dao;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,7 +76,7 @@ public class FuncionarioDAO {
     }
     
     public List<Funcionario> consultar() {
-    	List<Funcionario> funcionarios = new ArrayList();
+    	List<Funcionario> funcionarios = new ArrayList<>();
     	try {
     		String sql = "select * from funcionario";
     		PreparedStatement stmt = connection.prepareStatement(sql);
