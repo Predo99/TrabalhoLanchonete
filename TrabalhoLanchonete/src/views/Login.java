@@ -110,8 +110,7 @@ public class Login extends JFrame {
 		JLabel imgLogin = new JLabel("");
 		imgLogin.setBounds(76, 11, 618, 375);
 		contentPane.add(imgLogin);
-		imgLogin.setIcon(new ImageIcon(
-				"C:\\Users\\igorw\\eclipse-workspace\\TrabalhoLanchonete\\TrabalhoLanchonete\\src\\views\\icons\\burger.png"));
+		imgLogin.setIcon(new ImageIcon(getClass().getResource("/burger.png")));
 	}
 
 	// método teste para verificar se está funcionando o Login
