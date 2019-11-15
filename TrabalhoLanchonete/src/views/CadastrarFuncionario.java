@@ -18,6 +18,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import database.dao.FuncionarioDAO;
 import database.models.Funcionario;
 
 public class CadastrarFuncionario extends JFrame {
@@ -135,11 +136,11 @@ public class CadastrarFuncionario extends JFrame {
 			// Salvar
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (textNomeFuncionario.getText() == null || textCPF.getText() == null
-							|| textSalario.getText() == null) {
+					if (textNomeFuncionario.getText().equals("")|| textCPF.getText().equals("")
+							|| textSalario.getText().equals("") || new String(passwordFuncionario.getPassword()).equals("")
+							|| !rdbtnCaixa.isSelected() && !rdbtnGerente.isSelected()) {
 						JOptionPane.showMessageDialog(null, "Alguns campos estão vazios!");
-					} else {
-						List<Funcionario> listFuncionarios = new ArrayList<>();
+					} else {	
 						String nome = textNomeFuncionario.getText();
 						String cpf = textCPF.getText();
 						boolean gerente = false;
@@ -152,9 +153,15 @@ public class CadastrarFuncionario extends JFrame {
 
 						String senha = new String(passwordFuncionario.getPassword());
 						String salario = textSalario.getText();
-						listFuncionarios.add(new Funcionario(nome, cpf, senha, Double.parseDouble(salario), gerente));
-						JOptionPane.showMessageDialog(null, "Funcionário Cadastrado");
-						limparDados();
+						
+						Funcionario funcionario = new Funcionario(nome, cpf, senha, Double.parseDouble(salario), gerente);
+						FuncionarioDAO fd = new FuncionarioDAO();
+						if (fd.cadastrar(funcionario)) {
+							JOptionPane.showMessageDialog(null, "Funcionário Cadastrado");
+							limparDados();
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Funcionário já cadastrado ou dados inválidos");
 					}
 				} catch (Error err) {
 					JOptionPane.showMessageDialog(null, "Dados inválidos");
