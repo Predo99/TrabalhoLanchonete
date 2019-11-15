@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textUser;
 	private JPasswordField passwordField;
@@ -91,11 +92,12 @@ public class Login extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Classe FuncionarioDAO para fazer as operações do banco
+				// Classe FuncionarioDAO para fazer as operações do banco
 				FuncionarioDAO fd = new FuncionarioDAO();
 				Funcionario funcionario = fd.login(textUser.getText(), new String(passwordField.getPassword()));
-				if(funcionario != null) {
+				if (funcionario != null) {
 					JOptionPane.showMessageDialog(null, "Login funcionando");
+					new CadastrarFuncionario().setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Login ou senha incorretos");
 				}
@@ -111,10 +113,5 @@ public class Login extends JFrame {
 		imgLogin.setBounds(76, 11, 618, 375);
 		contentPane.add(imgLogin);
 		imgLogin.setIcon(new ImageIcon(getClass().getResource("/burger.png")));
-	}
-
-	// método teste para verificar se está funcionando o Login
-	public static boolean checkLogin(String login, String senha) {
-		return login.equals("admin") && senha.equals("admin");
 	}
 }
