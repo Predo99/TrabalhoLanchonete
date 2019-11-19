@@ -16,6 +16,44 @@ public class main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		//	OpcaoDAO OP = new OpcaoDAO();
+		//List<Opcao> p = new ArrayList<Opcao>();
+		//	p = OP.consultar();
+		//for (Opcao opcao : p) {
+			//	System.out.println(opcao.getNomeo() +" "+ opcao.getPreco()+
+		//"\n-----------------------------");
+		//}
+		
+		Cardapio cardapio1 = new Cardapio(1, null);
+		CardapioDAO cDAO = new CardapioDAO();
+		
+		cardapio1.setOpcoes( cDAO.mostrarOpcoes());
+		int i = 1;
+		for (Opcao opcao : cardapio1.getOpcoes()) {
+			
+			System.out.println("Opcao"+i+": "+opcao.getNomeo()+" Preco: "+opcao.getPreco()+"\n--------------");
+			i++;
+		}
+		
+	    Opcao o = new Opcao("suco 200ml", 0,null, null);
+	   System.out.println("Situação do adicionamento: "+cDAO.addOpcao(o,8));
+	    cardapio1.setOpcoes( cDAO.mostrarOpcoes());
+	    
+	    i = 1;System.out.println("\n\n\nCardápio Atulizado, adicionado "+o.getNomeo());
+		for (Opcao opcao : cardapio1.getOpcoes()) {
+			
+			System.out.println("Opcao"+i+": "+opcao.getNomeo()+" Preco: "+opcao.getPreco()+"\n--------------");
+			i++;
+		}
+	    
+		System.out.println(cDAO.removeOpcao(o));
+		cardapio1.setOpcoes( cDAO.mostrarOpcoes());
+		i = 1;System.out.println("\n\n\nCardápio Atulizado, removido "+o.getNomeo());
+		for (Opcao opcao : cardapio1.getOpcoes()) {
+			
+			System.out.println("Opcao"+i+": "+opcao.getNomeo()+" Preco: "+opcao.getPreco()+"\n--------------");
+			i++;
+		}
 		/*FuncionarioDAO fd = new FuncionarioDAO();
 		Funcionario f1 = new Funcionario("Pedro", "12345678900", "123456", 15000, true);
 		Funcionario f2 = new Funcionario("User2", "12345678911", "123456", 10000, false);
