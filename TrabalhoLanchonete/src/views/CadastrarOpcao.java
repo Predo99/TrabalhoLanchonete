@@ -187,11 +187,11 @@ public class CadastrarOpcao extends JFrame {
 					    OpcaoDAO od = new OpcaoDAO();
 					    
 					    if (od.cadastrar(opcao)) {
-							JOptionPane.showMessageDialog(null, "Opcção Cadastrada");
+							JOptionPane.showMessageDialog(null, "Opção cadastrada");
 							limparDados();
 						}
 						else
-							JOptionPane.showMessageDialog(null, "Opção já cadastrado ou dados inválidos");
+							JOptionPane.showMessageDialog(null, "Opção já cadastrada ou dados inválidos");
 					}
 					
 				}catch(Error | IOException err) {
