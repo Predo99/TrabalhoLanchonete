@@ -37,8 +37,8 @@ public class main {
 			i++;
 		}
 		
-	    Opcao o = new Opcao("suco 200ml", 0,null, null);
-	   System.out.println("Situação do adicionamento: "+cDAO.addOpcao(o,8));
+		Opcao o = new Opcao("suco 200ml", 0,null, null);
+	   	System.out.println("Situação do adicionamento: "+cDAO.addOpcao(o,8));
 	    cardapio1.setOpcoes( cDAO.mostrarOpcoes());
 	    
 	    i = 1;System.out.println("\n\n\nCardápio Atulizado, adicionado "+o.getNomeo());

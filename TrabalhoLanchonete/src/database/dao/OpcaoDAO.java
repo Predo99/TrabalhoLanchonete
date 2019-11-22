@@ -211,10 +211,12 @@ public class OpcaoDAO {
             
             sql = "delete from ingredientes_opcao where nomeo = ?";
             stmt = connection.prepareStatement(sql);
+            stmt.setString(1, nomeo);
             stmt.execute();
             stmt.close();
             return true;
     	}catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }	
     }

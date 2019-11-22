@@ -25,11 +25,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import database.dao.IngredienteDAO;
 import database.dao.OpcaoDAO;
 import database.models.Ingrediente;
 import database.models.Opcao;
+import javax.swing.JScrollPane;
 
 public class CadastrarOpcao extends JFrame {
 
@@ -39,6 +41,8 @@ public class CadastrarOpcao extends JFrame {
 	private JTextField textField_Preco;
 	private File selectedFile;
 	private JTextField textField;
+	private String filename = null;
+	private DefaultListModel<Ingrediente> listModel;
 	
 	/**
 	 * Launch the application.
@@ -101,11 +105,28 @@ public class CadastrarOpcao extends JFrame {
 		JButton btnImagem = new JButton("Buscar Imagem");
 		btnImagem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/*JFileChooser jfile = new JFileChooser();
+				jfile.setCurrentDirectory(new File(System.getProperty("user.home")));
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Image", "jpg", "png");
+				jfile.addChoosableFileFilter(filter);*/
+				
 				JFileChooser fileChooser = new JFileChooser(); 
+				
 				int returnValue = fileChooser.showOpenDialog(null); 
-				if (returnValue == JFileChooser.APPROVE_OPTION) 
-				{
-					selectedFile = fileChooser.getSelectedFile();
+				File test = fileChooser.getSelectedFile();
+				if(test != null) {
+					filename = test.getName();
+					if(filename.endsWith(".jpg") || filename.endsWith(".JPG") 
+							|| filename.endsWith(".png") || filename.endsWith("PNG")) {
+						if (returnValue == JFileChooser.APPROVE_OPTION) 
+						{
+							selectedFile = fileChooser.getSelectedFile();
+							filename = selectedFile.getName();
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Formato de imagem inválida");
+						filename = null;
+					}
 				}
 			}
 		});
@@ -114,13 +135,16 @@ public class CadastrarOpcao extends JFrame {
 		contentPane.add(btnImagem);
 		
 		IngredienteDAO fd = new IngredienteDAO();
-		List<Ingrediente> ingredientes = new ArrayList();
 		
-		DefaultListModel<Ingrediente> listModel = new DefaultListModel<>();
+		listModel = new DefaultListModel<>();
 		
-		JList<Ingrediente> list = new JList(listModel);
-		list.setBounds(347, 209, 148, 64);
-		list.setCellRenderer(new DefaultListCellRenderer() {
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(347, 209, 148, 64);
+		contentPane.add(scrollPane);
+		
+		JList<Ingrediente> list_1 = new JList(listModel);
+		scrollPane.setViewportView(list_1);
+		list_1.setCellRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -131,8 +155,6 @@ public class CadastrarOpcao extends JFrame {
                 return renderer;
             }
         });
-	
-		contentPane.add(list);
 		
 		JLabel lblTeste = new JLabel("Ingredientes:");
 		lblTeste.setFont(new Font("Arial", Font.BOLD, 14));
@@ -153,9 +175,6 @@ public class CadastrarOpcao extends JFrame {
 				if(f != null) {
 					listModel.addElement(f);
 				}
-				for(int i=0;i<listModel.getSize();i++) {
-					ingredientes.add(listModel.elementAt(i));
-				}
 				//funcionarios = listModel.toArray();
 			}
 		});
@@ -165,11 +184,6 @@ public class CadastrarOpcao extends JFrame {
 		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
-			public void limparDados() {
-				textField_Nome.setText("");
-				textField_Preco.setText("");
-				textField.setText("");
-			}
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(textField_Nome.getText().equals("") || textField_Preco.getText().equals("")) {
@@ -177,13 +191,22 @@ public class CadastrarOpcao extends JFrame {
 					}else {
 						String nome = textField_Nome.getText();
 						double preco = Double.parseDouble(textField_Preco.getText());
+						byte [] data = null;
 						
-						BufferedImage bImage = ImageIO.read(selectedFile);
-					    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					    ImageIO.write(bImage, "jpg", bos );
-					    byte [] data = bos.toByteArray();
+						if(selectedFile != null) {
+							BufferedImage bImage = ImageIO.read(selectedFile);
+							filename = filename.substring(filename.lastIndexOf('.')+1);
+						    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+						    ImageIO.write(bImage, filename, bos );
+						    data = bos.toByteArray();
+						}
 					    
-					    Opcao opcao = new Opcao(nome, preco,data, ingredientes);
+					    List<Ingrediente> ingredientes = new ArrayList();
+					    for(int i=0;i<listModel.getSize();i++) {
+							ingredientes.add(listModel.elementAt(i));
+						}
+					    
+					    Opcao opcao = new Opcao(nome, preco, data, ingredientes);
 					    OpcaoDAO od = new OpcaoDAO();
 					    
 					    if (od.cadastrar(opcao)) {
@@ -207,11 +230,7 @@ public class CadastrarOpcao extends JFrame {
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField_Nome.setText("");
-				textField_Preco.setText("");
-				selectedFile = null;
-				textField.setText("");
-				ingredientes.clear();
+				limparDados();
 			}
 		});
 		btnLimpar.setBackground(Color.YELLOW);
@@ -219,7 +238,13 @@ public class CadastrarOpcao extends JFrame {
 		btnLimpar.setBounds(378, 314, 109, 28);
 		contentPane.add(btnLimpar);
 		
-		
-		
+	}
+	
+	public void limparDados() {
+		textField_Nome.setText("");
+		textField_Preco.setText("");
+		selectedFile = null;
+		textField.setText("");
+		listModel.removeAllElements();
 	}
 }

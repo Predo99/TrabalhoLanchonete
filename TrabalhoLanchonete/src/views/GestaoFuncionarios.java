@@ -1,16 +1,12 @@
 package views;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import database.dao.FuncionarioDAO;
 import database.models.Funcionario;
-import database.models.Ingrediente;
+import database.models.Opcao;
 
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -57,7 +53,7 @@ public class GestaoFuncionarios extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "serial" })
 	public GestaoFuncionarios() {
 		FuncionarioDAO fd = new FuncionarioDAO();
 		setResizable(false);
@@ -73,25 +69,10 @@ public class GestaoFuncionarios extends JFrame {
 		scrollPane.setBounds(5, 5, 424, 2);
 		contentPane.add(scrollPane);
 		
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBackground(Color.YELLOW);
-		btnEditar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnEditar.setBounds(327, 182, 89, 28);
-		contentPane.add(btnEditar);
-		
 		JLabel lblGestoDeFuncionrios = new JLabel("Gest\u00E3o de Funcion\u00E1rios");
 		lblGestoDeFuncionrios.setFont(new Font("Arial", Font.BOLD, 18));
 		lblGestoDeFuncionrios.setBounds(109, 18, 222, 28);
 		contentPane.add(lblGestoDeFuncionrios);
-		
-		JButton btnPesquisar = new JButton("Pesquisar");
-		btnPesquisar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		btnPesquisar.setBounds(210, 86, 107, 20);
-		contentPane.add(btnPesquisar);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(42, 131, 275, 245);
@@ -105,7 +86,13 @@ public class GestaoFuncionarios extends JFrame {
 			new String[] {
 				"Nome", "CPF", "Sal\u00E1rio"
 			}
-		));
+		) {
+			 @Override
+			 public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+			 }
+		});
 		
 		
 		DefaultTableModel model =  (DefaultTableModel) table.getModel();
@@ -124,15 +111,32 @@ public class GestaoFuncionarios extends JFrame {
 		contentPane.add(textPesquisa);
 		textPesquisa.setColumns(10);
 		
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table.getSelectedRow() >= 0) {
+					
+				}else
+					JOptionPane.showMessageDialog(null, "Selecione um funcionário na lista para realizar a operação.");
+			}
+		});
+		btnEditar.setBackground(Color.YELLOW);
+		btnEditar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnEditar.setBounds(327, 182, 89, 28);
+		contentPane.add(btnEditar);
+		
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(fd.remover((String) table.getValueAt(table.getSelectedRow(), 1))) {
-					JOptionPane.showMessageDialog(null, "Funcionário excluído.");
-					model.removeRow(table.getSelectedRow());
-				}	
-				else
-					JOptionPane.showMessageDialog(null, "Erro ao excluir funcionario.");
+				if(table.getSelectedRow() >= 0) {
+					if(fd.remover((String) table.getValueAt(table.getSelectedRow(), 1))) {
+						JOptionPane.showMessageDialog(null, "Funcionário excluído.");
+						model.removeRow(table.getSelectedRow());
+					}	
+					else
+						JOptionPane.showMessageDialog(null, "Erro ao excluir funcionario.");
+				}else
+					JOptionPane.showMessageDialog(null, "Selecione um funcionário na lista para realizar a operação.");
 			}
 		});
 		btnExcluir.setForeground(Color.WHITE);
