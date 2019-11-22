@@ -24,6 +24,9 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.LookAndFeel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -73,33 +76,33 @@ public class CadastrarOpcao extends JFrame {
 		
 		JLabel lblCadastrarOpo = new JLabel("Cadastrar Op\u00E7\u00E3o");
 		lblCadastrarOpo.setFont(new Font("Arial", Font.BOLD, 24));
-		lblCadastrarOpo.setBounds(259, 22, 292, 29);
+		lblCadastrarOpo.setBounds(211, 23, 292, 29);
 		contentPane.add(lblCadastrarOpo);
 		
 		textField_Nome = new JTextField();
 		textField_Nome.setFont(new Font("Arial", Font.PLAIN, 11));
-		textField_Nome.setBounds(347, 85, 86, 20);
+		textField_Nome.setBounds(284, 85, 109, 20);
 		contentPane.add(textField_Nome);
 		textField_Nome.setColumns(10);
 		
 		textField_Preco = new JTextField();
-		textField_Preco.setBounds(347, 116, 86, 20);
+		textField_Preco.setBounds(284, 116, 109, 20);
 		contentPane.add(textField_Preco);
 		textField_Preco.setColumns(10);
 				      
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNome.setBounds(291, 87, 46, 14);
+		lblNome.setBounds(228, 87, 46, 14);
 		contentPane.add(lblNome);
 		
 		JLabel lblCusto = new JLabel("Custo:");
 		lblCusto.setFont(new Font("Arial", Font.BOLD, 14));
-		lblCusto.setBounds(291, 118, 46, 14);
+		lblCusto.setBounds(228, 118, 46, 14);
 		contentPane.add(lblCusto);
 		
 		JLabel lblImagem = new JLabel("Imagem:");
 		lblImagem.setFont(new Font("Arial", Font.BOLD, 14));
-		lblImagem.setBounds(279, 143, 58, 20);
+		lblImagem.setBounds(216, 143, 58, 20);
 		contentPane.add(lblImagem);
 		
 		JButton btnImagem = new JButton("Buscar Imagem");
@@ -110,17 +113,39 @@ public class CadastrarOpcao extends JFrame {
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Image", "jpg", "png");
 				jfile.addChoosableFileFilter(filter);*/
 				
-				JFileChooser fileChooser = new JFileChooser(); 
+				JFileChooser fileChooser = null;
+				LookAndFeel previousLF = UIManager.getLookAndFeel();
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					fileChooser = new JFileChooser(); 
+				    UIManager.setLookAndFeel(previousLF);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InstantiationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (UnsupportedLookAndFeelException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 				int returnValue = fileChooser.showOpenDialog(null); 
 				File test = fileChooser.getSelectedFile();
+				
 				if(test != null) {
 					filename = test.getName();
 					if(filename.endsWith(".jpg") || filename.endsWith(".JPG") 
 							|| filename.endsWith(".png") || filename.endsWith("PNG")) {
 						if (returnValue == JFileChooser.APPROVE_OPTION) 
 						{
+							FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Image", "jpg", "png");
+							fileChooser.setFileFilter(filter);
 							selectedFile = fileChooser.getSelectedFile();
+
 							filename = selectedFile.getName();
 						}
 					}else {
@@ -131,7 +156,7 @@ public class CadastrarOpcao extends JFrame {
 			}
 		});
 		btnImagem.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnImagem.setBounds(347, 143, 109, 23);
+		btnImagem.setBounds(284, 143, 109, 23);
 		contentPane.add(btnImagem);
 		
 		IngredienteDAO fd = new IngredienteDAO();
@@ -139,36 +164,23 @@ public class CadastrarOpcao extends JFrame {
 		listModel = new DefaultListModel<>();
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(347, 209, 148, 64);
+		scrollPane.setBounds(282, 208, 148, 64);
 		contentPane.add(scrollPane);
-		
-		JList<Ingrediente> list_1 = new JList(listModel);
-		scrollPane.setViewportView(list_1);
-		list_1.setCellRenderer(new DefaultListCellRenderer() {
-            @Override
-            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if (renderer instanceof JLabel && value instanceof Ingrediente) {
-                    // Here value will be of the Type 'CD'
-                    ((JLabel) renderer).setText(((Ingrediente) value).getNomei());
-                }
-                return renderer;
-            }
-        });
 		
 		JLabel lblTeste = new JLabel("Ingredientes:");
 		lblTeste.setFont(new Font("Arial", Font.BOLD, 14));
-		lblTeste.setBounds(243, 180, 94, 20);
+		lblTeste.setBounds(180, 177, 94, 20);
 		contentPane.add(lblTeste);	
 		
 
 		textField = new JTextField();
-		textField.setBounds(347, 178, 109, 20);
+		textField.setBounds(284, 177, 109, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		
-		JButton btnProcurar = new JButton("Procurar Ingrediente");
+		JButton btnProcurar = new JButton("Procurar ");
+		btnProcurar.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnProcurar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Ingrediente f = fd.consultar(textField.getText());
@@ -178,7 +190,7 @@ public class CadastrarOpcao extends JFrame {
 				//funcionarios = listModel.toArray();
 			}
 		});
-		btnProcurar.setBounds(466, 177, 177, 23);
+		btnProcurar.setBounds(403, 174, 94, 23);
 		contentPane.add(btnProcurar);
 		
 		
@@ -212,6 +224,8 @@ public class CadastrarOpcao extends JFrame {
 					    if (od.cadastrar(opcao)) {
 							JOptionPane.showMessageDialog(null, "Opção cadastrada");
 							limparDados();
+							new GestaoOpcao().setVisible(true);
+							dispose();
 						}
 						else
 							JOptionPane.showMessageDialog(null, "Opção já cadastrada ou dados inválidos");
@@ -224,7 +238,7 @@ public class CadastrarOpcao extends JFrame {
 		});
 		btnConfirmar.setBackground(Color.GREEN);
 		btnConfirmar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnConfirmar.setBounds(259, 314, 109, 28);
+		btnConfirmar.setBounds(199, 314, 109, 28);
 		contentPane.add(btnConfirmar);
 		
 		JButton btnLimpar = new JButton("Limpar");
@@ -233,10 +247,37 @@ public class CadastrarOpcao extends JFrame {
 				limparDados();
 			}
 		});
-		btnLimpar.setBackground(Color.YELLOW);
+		btnLimpar.setBackground(Color.RED);
 		btnLimpar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnLimpar.setBounds(378, 314, 109, 28);
+		btnLimpar.setBounds(318, 314, 109, 28);
 		contentPane.add(btnLimpar);
+		
+		JList<Ingrediente> list_1 = new JList(listModel);
+		list_1.setBounds(284, 208, 146, 62);
+		contentPane.add(list_1);
+		list_1.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (renderer instanceof JLabel && value instanceof Ingrediente) {
+                    // Here value will be of the Type 'CD'
+                    ((JLabel) renderer).setText(((Ingrediente) value).getNomei());
+                }
+                return renderer;
+            }
+        });
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GestaoOpcao().setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBackground(Color.YELLOW);
+		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnVoltar.setBounds(437, 314, 89, 27);
+		contentPane.add(btnVoltar);
 		
 	}
 	

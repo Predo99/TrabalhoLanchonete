@@ -122,7 +122,7 @@ public class GestaoFuncionarios extends JFrame {
 		});
 		btnEditar.setBackground(Color.YELLOW);
 		btnEditar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnEditar.setBounds(327, 182, 89, 28);
+		btnEditar.setBounds(327, 224, 102, 28);
 		contentPane.add(btnEditar);
 		
 		JButton btnExcluir = new JButton("Excluir");
@@ -142,8 +142,20 @@ public class GestaoFuncionarios extends JFrame {
 		btnExcluir.setForeground(Color.WHITE);
 		btnExcluir.setBackground(Color.RED);
 		btnExcluir.setFont(new Font("Arial", Font.BOLD, 14));
-		btnExcluir.setBounds(327, 274, 89, 28);
+		btnExcluir.setBounds(327, 274, 102, 28);
 		contentPane.add(btnExcluir);
+		
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CadastrarFuncionario().setVisible(true);
+				dispose();
+			}
+		});
+		btnAdicionar.setBackground(Color.GREEN);
+		btnAdicionar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnAdicionar.setBounds(327, 171, 102, 28);
+		contentPane.add(btnAdicionar);
 		
 	}
 	

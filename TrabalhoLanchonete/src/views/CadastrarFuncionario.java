@@ -158,7 +158,8 @@ public class CadastrarFuncionario extends JFrame {
 						FuncionarioDAO fd = new FuncionarioDAO();
 						if (fd.cadastrar(funcionario)) {
 							JOptionPane.showMessageDialog(null, "Funcionário Cadastrado");
-							limparDados();
+							new GestaoFuncionarios().setVisible(true);
+							dispose();
 						}
 						else
 							JOptionPane.showMessageDialog(null, "Funcionário já cadastrado ou dados inválidos");
@@ -171,7 +172,7 @@ public class CadastrarFuncionario extends JFrame {
 		});
 		btnCadastrar.setBackground(Color.GREEN);
 		btnCadastrar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnCadastrar.setBounds(238, 319, 109, 28);
+		btnCadastrar.setBounds(197, 319, 109, 28);
 		contentPane.add(btnCadastrar);
 
 		JButton btnLimpar = new JButton("Limpar");
@@ -187,9 +188,9 @@ public class CadastrarFuncionario extends JFrame {
 			}
 
 		});
-		btnLimpar.setBackground(Color.YELLOW);
+		btnLimpar.setBackground(Color.RED);
 		btnLimpar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnLimpar.setBounds(360, 319, 97, 28);
+		btnLimpar.setBounds(316, 319, 97, 28);
 		contentPane.add(btnLimpar);
 
 		JLabel lblSenha = new JLabel("Senha: ");
@@ -210,5 +211,17 @@ public class CadastrarFuncionario extends JFrame {
 		textSalario.setBounds(284, 269, 140, 20);
 		contentPane.add(textSalario);
 		textSalario.setColumns(10);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GestaoFuncionarios().setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBackground(Color.YELLOW);
+		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnVoltar.setBounds(423, 319, 89, 27);
+		contentPane.add(btnVoltar);
 	}
 }

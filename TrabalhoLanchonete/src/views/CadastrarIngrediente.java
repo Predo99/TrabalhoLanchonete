@@ -113,6 +113,8 @@ public class CadastrarIngrediente extends JFrame {
 						if (id.cadastrar(ingrediente)) {
 							JOptionPane.showMessageDialog(null, "Ingrediente Cadastrado");
 							limparDados();
+							new GestaoIngredientes().setVisible(true);
+							dispose();
 						}
 						else
 							JOptionPane.showMessageDialog(null, "Ingrediente já cadastrado ou dados inválidos");

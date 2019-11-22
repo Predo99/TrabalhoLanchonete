@@ -61,14 +61,13 @@ public class CardapioDAO {
 		
 	}
 	
-	public boolean addOpcao(Opcao o, int id){
+	public boolean addOpcao(Opcao o){
 		
 		try {
-			String sql = "insert into opcoes_cardapio values(?, ?, ?)";
+			String sql = "insert into opcoes_cardapio (codigoc,nomeo) values(?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, id);
-			stmt.setInt(2,1);
-			stmt.setString(3, o.getNomeo());
+			stmt.setInt(1,1);
+			stmt.setString(2, o.getNomeo());
 			stmt.execute();
 			stmt.close();
 			
@@ -84,11 +83,11 @@ public class CardapioDAO {
 		
 	}
 	
-	public boolean removeOpcao(Opcao o) {
+	public boolean removeOpcao(String o) {
 		try {
 			String sql = "delete from opcoes_cardapio where nomeo = ?";
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, o.getNomeo());
+			stmt.setString(1, o);
 			stmt.execute();
 			stmt.close();
 			

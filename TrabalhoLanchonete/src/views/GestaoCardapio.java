@@ -1,43 +1,45 @@
 package views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.List;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
+import database.dao.CardapioDAO;
 import database.dao.OpcaoDAO;
+import database.models.Cardapio;
 import database.models.Opcao;
 
-import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
-public class GestaoOpcao extends JFrame {
+import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.List;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class GestaoCardapio extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
 	private JTable table;
-	private JButton btnImagem;
 
 	/**
 	 * Launch the application.
@@ -46,7 +48,7 @@ public class GestaoOpcao extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GestaoOpcao frame = new GestaoOpcao();
+					GestaoCardapio frame = new GestaoCardapio();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,8 +60,8 @@ public class GestaoOpcao extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings("serial")
-	public GestaoOpcao() {
+	public GestaoCardapio() {
+		CardapioDAO cd = new CardapioDAO();
 		OpcaoDAO od = new OpcaoDAO();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 354);
@@ -68,13 +70,13 @@ public class GestaoOpcao extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblGestoDeOpcoes = new JLabel("Gest\u00E3o de Op\u00E7\u00F5es");
-		lblGestoDeOpcoes.setFont(new Font("Arial", Font.BOLD, 18));
-		lblGestoDeOpcoes.setBounds(109, 18, 222, 28);
-		contentPane.add(lblGestoDeOpcoes);
+		JLabel lblGestoDeCardpio = new JLabel("Gest\u00E3o do Card\u00E1pio");
+		lblGestoDeCardpio.setFont(new Font("Arial", Font.BOLD, 18));
+		lblGestoDeCardpio.setBounds(121, 11, 222, 28);
+		contentPane.add(lblGestoDeCardpio);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(30, 99, 252, 205);
+		scrollPane.setBounds(10, 99, 252, 205);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -99,7 +101,7 @@ public class GestaoOpcao extends JFrame {
 		});
 		
 		DefaultTableModel model =  (DefaultTableModel) table.getModel();
-		preencher(od, model);
+		preencher(cd, model);
 		
 		for (int i = 0; i < table.getColumnCount(); i++) {
 		      DefaultTableColumnModel colModel = (DefaultTableColumnModel) table.getColumnModel();
@@ -116,24 +118,24 @@ public class GestaoOpcao extends JFrame {
 		      col.setPreferredWidth(width + 2);
 		}
 		
-		JTextField textPesquisa = new JTextField();
-		textPesquisa.addKeyListener(new KeyAdapter() {
+		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				TableRowSorter<DefaultTableModel> filtro = new TableRowSorter<DefaultTableModel>(model);
 				table.setRowSorter(filtro);
-				filtro.setRowFilter(RowFilter.regexFilter(textPesquisa.getText()));
+				filtro.setRowFilter(RowFilter.regexFilter(textField.getText()));
 			}
 		});
-		textPesquisa.setBounds(30, 68, 168, 20);
-		contentPane.add(textPesquisa);
-		textPesquisa.setColumns(10);
+		textField.setColumns(10);
+		textField.setBounds(10, 68, 168, 20);
+		contentPane.add(textField);
 		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JButton button = new JButton("Excluir");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() >= 0){
-					if(od.remover((String) table.getValueAt(table.getSelectedRow(), 0))) {
+					if(cd.removeOpcao(((String) table.getValueAt(table.getSelectedRow(), 0)))) {
 						JOptionPane.showMessageDialog(null, "Opção excluída.");
 						model.removeRow(table.getSelectedRow());
 					}	
@@ -144,29 +146,25 @@ public class GestaoOpcao extends JFrame {
 					JOptionPane.showMessageDialog(null, "Selecione uma opção na lista para realizar a operação.");
 			}
 		});
-		btnExcluir.setForeground(Color.WHITE);
-		btnExcluir.setBackground(Color.RED);
-		btnExcluir.setFont(new Font("Arial", Font.BOLD, 14));
-		btnExcluir.setBounds(327, 258, 89, 28);
-		contentPane.add(btnExcluir);
+		button.setForeground(Color.WHITE);
+		button.setFont(new Font("Arial", Font.BOLD, 14));
+		button.setBackground(Color.RED);
+		button.setBounds(307, 258, 89, 28);
+		contentPane.add(button);
 		
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(table.getSelectedRow() >= 0) {
-					
-				}else
-					JOptionPane.showMessageDialog(null, "Selecione uma opção na lista para realizar a operação.");
+		JButton button_1 = new JButton("Editar");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnEditar.setBackground(Color.YELLOW);
-		btnEditar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnEditar.setBounds(327, 219, 89, 28);
-		contentPane.add(btnEditar);
+		button_1.setFont(new Font("Arial", Font.BOLD, 14));
+		button_1.setBackground(Color.YELLOW);
+		button_1.setBounds(307, 219, 89, 28);
+		contentPane.add(button_1);
 		
-		JButton btnListar = new JButton("Ingredientes");
-		btnListar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JButton button_2 = new JButton("Ingredientes");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() >= 0) {
 					Opcao opcao = od.consultar((String) table.getValueAt(table.getSelectedRow(), 0));
 					new ListaIngredientes(opcao).setVisible(true);
@@ -174,14 +172,14 @@ public class GestaoOpcao extends JFrame {
 					JOptionPane.showMessageDialog(null, "Selecione uma opção na lista para realizar a operação.");
 			}
 		});
-		btnListar.setBackground(Color.GREEN);
-		btnListar.setFont(new Font("Arial", Font.BOLD, 13));
-		btnListar.setBounds(305, 180, 120, 28);
-		contentPane.add(btnListar);
+		button_2.setFont(new Font("Arial", Font.BOLD, 13));
+		button_2.setBackground(Color.GREEN);
+		button_2.setBounds(285, 180, 120, 28);
+		contentPane.add(button_2);
 		
-		btnImagem = new JButton("Imagem");
-		btnImagem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JButton button_3 = new JButton("Imagem");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() >= 0) {
 					Opcao opcao = od.consultar((String) table.getValueAt(table.getSelectedRow(), 0));
 					if(opcao.getImagem() != null)
@@ -192,27 +190,27 @@ public class GestaoOpcao extends JFrame {
 					JOptionPane.showMessageDialog(null, "Selecione uma opção na lista para realizar a operação.");
 			}
 		});
-		btnImagem.setBackground(Color.GREEN);
-		btnImagem.setFont(new Font("Arial", Font.BOLD, 13));
-		btnImagem.setBounds(327, 141, 89, 28);
-		contentPane.add(btnImagem);
+		button_3.setFont(new Font("Arial", Font.BOLD, 13));
+		button_3.setBackground(Color.GREEN);
+		button_3.setBounds(307, 141, 89, 28);
+		contentPane.add(button_3);
 		
-		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.addActionListener(new ActionListener() {
+		JButton button_4 = new JButton("Adicionar");
+		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new CadastrarOpcao().setVisible(true);
+				new AdicionarCardapio().setVisible(true);
 				dispose();
 			}
 		});
-		btnAdicionar.setBackground(Color.GREEN);
-		btnAdicionar.setFont(new Font("Arial", Font.BOLD, 13));
-		btnAdicionar.setBounds(305, 99, 111, 26);
-		contentPane.add(btnAdicionar);
+		button_4.setFont(new Font("Arial", Font.BOLD, 13));
+		button_4.setBackground(Color.GREEN);
+		button_4.setBounds(285, 99, 111, 26);
+		contentPane.add(button_4);
 	}
-
-	private void preencher(OpcaoDAO od, DefaultTableModel model) {
+	
+	private void preencher(CardapioDAO cd, DefaultTableModel model) {
 		// TODO Auto-generated method stub
-		List<Opcao> opcoes = od.consultar();
+		List<Opcao> opcoes = cd.mostrarOpcoes();
 		Object rowData[] = new Object[2];
 		for(int i = 0; i < opcoes.size(); i++) {
 			/*if(opcoes.get(i).getImagem() != null) {
@@ -228,5 +226,4 @@ public class GestaoOpcao extends JFrame {
 			model.addRow(rowData);
 		}
 	}
-
 }
