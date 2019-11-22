@@ -33,11 +33,12 @@ public class GestaoFuncionarios extends JFrame {
 	private JPanel contentPane;
 	private JTextField textPesquisa;
 	private JTable table;
+	private JButton btnVoltar;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -48,13 +49,14 @@ public class GestaoFuncionarios extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
+	 * @param funcionario 
 	 */
 	@SuppressWarnings({ "unchecked", "serial" })
-	public GestaoFuncionarios() {
+	public GestaoFuncionarios(Funcionario funcionario) {
 		FuncionarioDAO fd = new FuncionarioDAO();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,7 +150,7 @@ public class GestaoFuncionarios extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new CadastrarFuncionario().setVisible(true);
+				new CadastrarFuncionario(funcionario).setVisible(true);
 				dispose();
 			}
 		});
@@ -156,6 +158,18 @@ public class GestaoFuncionarios extends JFrame {
 		btnAdicionar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnAdicionar.setBounds(327, 171, 102, 28);
 		contentPane.add(btnAdicionar);
+		
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Menu(funcionario).setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBackground(Color.YELLOW);
+		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnVoltar.setBounds(327, 348, 102, 28);
+		contentPane.add(btnVoltar);
 		
 	}
 	

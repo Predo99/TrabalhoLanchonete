@@ -30,7 +30,7 @@ public class Login extends JFrame {
 	/**
 	 * Roda a aplicação.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -41,7 +41,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Criação de Frame Login.
@@ -96,8 +96,9 @@ public class Login extends JFrame {
 				FuncionarioDAO fd = new FuncionarioDAO();
 				Funcionario funcionario = fd.login(textUser.getText(), new String(passwordField.getPassword()));
 				if (funcionario != null) {
-					JOptionPane.showMessageDialog(null, "Login funcionando");
-					new CadastrarFuncionario().setVisible(true);
+					JOptionPane.showMessageDialog(null, "Login realizado com sucesso.");
+					new Menu(funcionario).setVisible(true);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Login ou senha incorretos");
 				}

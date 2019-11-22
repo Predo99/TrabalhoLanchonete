@@ -14,6 +14,7 @@ import javax.swing.table.TableRowSorter;
 
 import database.dao.CardapioDAO;
 import database.dao.OpcaoDAO;
+import database.models.Funcionario;
 import database.models.Opcao;
 
 import javax.swing.JLabel;
@@ -40,8 +41,9 @@ public class AdicionarCardapio extends JFrame {
 	private JTable table;
 	/**
 	 * Launch the application.
+	 * @param funcionario 
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -57,7 +59,7 @@ public class AdicionarCardapio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AdicionarCardapio() {
+	public AdicionarCardapio(Funcionario funcionario) {
 		CardapioDAO cd = new CardapioDAO();
 		OpcaoDAO od = new OpcaoDAO();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -138,7 +140,7 @@ public class AdicionarCardapio extends JFrame {
 					}else {
 						JOptionPane.showMessageDialog(null,"Erro no Cadastro");
 					}
-					new GestaoCardapio().setVisible(true);
+					new GestaoCardapio(funcionario).setVisible(true);
 					dispose();					
 				}else
 					JOptionPane.showMessageDialog(null, "Selecione uma opção na lista para realizar a operação.");
@@ -154,7 +156,7 @@ public class AdicionarCardapio extends JFrame {
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 13));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new GestaoCardapio().setVisible(true);
+				new GestaoCardapio(funcionario).setVisible(true);
 				dispose();
 			}
 		});

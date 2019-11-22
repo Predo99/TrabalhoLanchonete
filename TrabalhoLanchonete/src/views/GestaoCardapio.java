@@ -15,6 +15,7 @@ import javax.swing.table.TableRowSorter;
 import database.dao.CardapioDAO;
 import database.dao.OpcaoDAO;
 import database.models.Cardapio;
+import database.models.Funcionario;
 import database.models.Opcao;
 
 import javax.swing.JLabel;
@@ -44,7 +45,7 @@ public class GestaoCardapio extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -59,8 +60,9 @@ public class GestaoCardapio extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param funcionario 
 	 */
-	public GestaoCardapio() {
+	public GestaoCardapio(Funcionario funcionario) {
 		CardapioDAO cd = new CardapioDAO();
 		OpcaoDAO od = new OpcaoDAO();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,7 +151,7 @@ public class GestaoCardapio extends JFrame {
 		button.setForeground(Color.WHITE);
 		button.setFont(new Font("Arial", Font.BOLD, 14));
 		button.setBackground(Color.RED);
-		button.setBounds(307, 258, 89, 28);
+		button.setBounds(307, 235, 89, 28);
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("Editar");
@@ -159,7 +161,7 @@ public class GestaoCardapio extends JFrame {
 		});
 		button_1.setFont(new Font("Arial", Font.BOLD, 14));
 		button_1.setBackground(Color.YELLOW);
-		button_1.setBounds(307, 219, 89, 28);
+		button_1.setBounds(307, 196, 89, 28);
 		contentPane.add(button_1);
 		
 		JButton button_2 = new JButton("Ingredientes");
@@ -174,7 +176,7 @@ public class GestaoCardapio extends JFrame {
 		});
 		button_2.setFont(new Font("Arial", Font.BOLD, 13));
 		button_2.setBackground(Color.GREEN);
-		button_2.setBounds(285, 180, 120, 28);
+		button_2.setBounds(285, 157, 120, 28);
 		contentPane.add(button_2);
 		
 		JButton button_3 = new JButton("Imagem");
@@ -192,20 +194,32 @@ public class GestaoCardapio extends JFrame {
 		});
 		button_3.setFont(new Font("Arial", Font.BOLD, 13));
 		button_3.setBackground(Color.GREEN);
-		button_3.setBounds(307, 141, 89, 28);
+		button_3.setBounds(307, 118, 89, 28);
 		contentPane.add(button_3);
 		
 		JButton button_4 = new JButton("Adicionar");
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new AdicionarCardapio().setVisible(true);
+				new AdicionarCardapio(funcionario).setVisible(true);
 				dispose();
 			}
 		});
 		button_4.setFont(new Font("Arial", Font.BOLD, 13));
 		button_4.setBackground(Color.GREEN);
-		button_4.setBounds(285, 99, 111, 26);
+		button_4.setBounds(285, 81, 111, 26);
 		contentPane.add(button_4);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Menu(funcionario).setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBackground(Color.YELLOW);
+		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnVoltar.setBounds(307, 274, 89, 27);
+		contentPane.add(btnVoltar);
 	}
 	
 	private void preencher(CardapioDAO cd, DefaultTableModel model) {

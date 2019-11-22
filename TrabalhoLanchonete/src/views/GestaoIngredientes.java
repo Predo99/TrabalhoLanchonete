@@ -14,6 +14,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
 import database.dao.IngredienteDAO;
+import database.models.Funcionario;
 import database.models.Ingrediente;
 
 import javax.swing.JLabel;
@@ -43,7 +44,7 @@ public class GestaoIngredientes extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -58,8 +59,9 @@ public class GestaoIngredientes extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param funcionario 
 	 */
-	public GestaoIngredientes() {
+	public GestaoIngredientes(Funcionario funcionario) {
 		IngredienteDAO id = new IngredienteDAO();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 453, 442);
@@ -128,7 +130,7 @@ public class GestaoIngredientes extends JFrame {
 		btnAdicionar.setBackground(Color.GREEN);
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new CadastrarIngrediente().setVisible(true);
+				new CadastrarIngrediente(funcionario).setVisible(true);
 				dispose();
 			}
 		});
@@ -159,6 +161,18 @@ public class GestaoIngredientes extends JFrame {
 		btnExcluir.setBackground(Color.RED);
 		btnExcluir.setBounds(327, 302, 100, 23);
 		contentPane.add(btnExcluir);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Menu(funcionario).setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBackground(Color.YELLOW);
+		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnVoltar.setBounds(338, 349, 89, 27);
+		contentPane.add(btnVoltar);
 	}
 	private void preencher(IngredienteDAO id, DefaultTableModel model) {
 		// TODO Auto-generated method stub

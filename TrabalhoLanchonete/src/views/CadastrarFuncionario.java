@@ -33,8 +33,9 @@ public class CadastrarFuncionario extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @param funcionario 
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -50,7 +51,7 @@ public class CadastrarFuncionario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastrarFuncionario() {
+	public CadastrarFuncionario(Funcionario funcionario) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 720, 421);
@@ -158,7 +159,7 @@ public class CadastrarFuncionario extends JFrame {
 						FuncionarioDAO fd = new FuncionarioDAO();
 						if (fd.cadastrar(funcionario)) {
 							JOptionPane.showMessageDialog(null, "Funcionário Cadastrado");
-							new GestaoFuncionarios().setVisible(true);
+							new GestaoFuncionarios(funcionario).setVisible(true);
 							dispose();
 						}
 						else
@@ -215,7 +216,7 @@ public class CadastrarFuncionario extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new GestaoFuncionarios().setVisible(true);
+				new GestaoFuncionarios(funcionario).setVisible(true);
 				dispose();
 			}
 		});
