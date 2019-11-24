@@ -126,7 +126,7 @@ public class CadastrarIngrediente extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
 		btnNewButton.setBackground(Color.GREEN);
-		btnNewButton.setBounds(258, 270, 109, 28);
+		btnNewButton.setBounds(229, 270, 109, 28);
 		contentPane.add(btnNewButton);
 		
 		JButton btnLimpar = new JButton("Limpar");
@@ -137,10 +137,22 @@ public class CadastrarIngrediente extends JFrame {
 				textField_Quantidade.setText("");
 			}
 		});
-		btnLimpar.setBackground(Color.YELLOW);
+		btnLimpar.setBackground(Color.RED);
 		btnLimpar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnLimpar.setBounds(377, 270, 109, 28);
+		btnLimpar.setBounds(348, 270, 109, 28);
 		contentPane.add(btnLimpar);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GestaoIngredientes().setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBackground(Color.YELLOW);
+		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnVoltar.setBounds(467, 270, 89, 27);
+		contentPane.add(btnVoltar);
 	}
 
 }
