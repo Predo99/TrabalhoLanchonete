@@ -1,11 +1,23 @@
 package views;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
@@ -14,27 +26,12 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
 import database.dao.IngredienteDAO;
+import database.models.Funcionario;
 import database.models.Ingrediente;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.List;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class GestaoIngredientes extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_Pesquisa;
 	private JTable table;
@@ -43,7 +40,7 @@ public class GestaoIngredientes extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -58,8 +55,10 @@ public class GestaoIngredientes extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param funcionario 
 	 */
-	public GestaoIngredientes() {
+	public GestaoIngredientes(Funcionario funcionario) {
+		setResizable(false);
 		IngredienteDAO id = new IngredienteDAO();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 453, 442);
@@ -86,7 +85,10 @@ public class GestaoIngredientes extends JFrame {
 					"Nome", "Custo", "Quantidade"
 			}
 		) {
-			 @Override
+	
+			private static final long serialVersionUID = 1L;
+
+			@Override
 			 public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
@@ -128,7 +130,7 @@ public class GestaoIngredientes extends JFrame {
 		btnAdicionar.setBackground(Color.GREEN);
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new CadastrarIngrediente().setVisible(true);
+				new CadastrarIngrediente(funcionario).setVisible(true);
 				dispose();
 			}
 		});
@@ -159,6 +161,18 @@ public class GestaoIngredientes extends JFrame {
 		btnExcluir.setBackground(Color.RED);
 		btnExcluir.setBounds(327, 302, 100, 23);
 		contentPane.add(btnExcluir);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Menu(funcionario).setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBackground(Color.YELLOW);
+		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnVoltar.setBounds(338, 349, 89, 27);
+		contentPane.add(btnVoltar);
 	}
 	private void preencher(IngredienteDAO id, DefaultTableModel model) {
 		// TODO Auto-generated method stub

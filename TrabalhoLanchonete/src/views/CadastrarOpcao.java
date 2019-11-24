@@ -2,7 +2,6 @@ package views;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
@@ -32,9 +32,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import database.dao.IngredienteDAO;
 import database.dao.OpcaoDAO;
+import database.models.Funcionario;
 import database.models.Ingrediente;
 import database.models.Opcao;
-import javax.swing.JScrollPane;
 
 public class CadastrarOpcao extends JFrame {
 
@@ -49,8 +49,9 @@ public class CadastrarOpcao extends JFrame {
 	
 	/**
 	 * Launch the application.
+	 * @param funcionario 
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -66,7 +67,8 @@ public class CadastrarOpcao extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CadastrarOpcao() {
+	public CadastrarOpcao(Funcionario funcionario) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 720, 421);
 		contentPane = new JPanel();
@@ -224,7 +226,7 @@ public class CadastrarOpcao extends JFrame {
 					    if (od.cadastrar(opcao)) {
 							JOptionPane.showMessageDialog(null, "Opção cadastrada");
 							limparDados();
-							new GestaoOpcao().setVisible(true);
+							new GestaoOpcao(funcionario).setVisible(true);
 							dispose();
 						}
 						else
@@ -270,7 +272,7 @@ public class CadastrarOpcao extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new GestaoOpcao().setVisible(true);
+				new GestaoOpcao(funcionario).setVisible(true);
 				dispose();
 			}
 		});

@@ -1,9 +1,11 @@
 package views;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,10 +18,6 @@ import javax.swing.border.EmptyBorder;
 import database.dao.FuncionarioDAO;
 import database.models.Funcionario;
 
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -27,10 +25,7 @@ public class Login extends JFrame {
 	private JTextField textUser;
 	private JPasswordField passwordField;
 
-	/**
-	 * Roda a aplicação.
-	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -41,7 +36,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Criação de Frame Login.
@@ -96,8 +91,9 @@ public class Login extends JFrame {
 				FuncionarioDAO fd = new FuncionarioDAO();
 				Funcionario funcionario = fd.login(textUser.getText(), new String(passwordField.getPassword()));
 				if (funcionario != null) {
-					JOptionPane.showMessageDialog(null, "Login funcionando");
-					new CadastrarFuncionario().setVisible(true);
+					JOptionPane.showMessageDialog(null, "Login realizado com sucesso.");
+					new Menu(funcionario).setVisible(true);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Login ou senha incorretos");
 				}

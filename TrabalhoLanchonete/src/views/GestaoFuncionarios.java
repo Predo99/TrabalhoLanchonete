@@ -1,8 +1,12 @@
 package views;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,22 +14,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import database.dao.FuncionarioDAO;
 import database.models.Funcionario;
-import database.models.Opcao;
-
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class GestaoFuncionarios extends JFrame {
 
@@ -33,11 +30,12 @@ public class GestaoFuncionarios extends JFrame {
 	private JPanel contentPane;
 	private JTextField textPesquisa;
 	private JTable table;
+	private JButton btnVoltar;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -48,13 +46,14 @@ public class GestaoFuncionarios extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
+	 * @param funcionario 
 	 */
 	@SuppressWarnings({ "unchecked", "serial" })
-	public GestaoFuncionarios() {
+	public GestaoFuncionarios(Funcionario funcionario) {
 		FuncionarioDAO fd = new FuncionarioDAO();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,7 +147,7 @@ public class GestaoFuncionarios extends JFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new CadastrarFuncionario().setVisible(true);
+				new CadastrarFuncionario(funcionario).setVisible(true);
 				dispose();
 			}
 		});
@@ -156,6 +155,18 @@ public class GestaoFuncionarios extends JFrame {
 		btnAdicionar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnAdicionar.setBounds(327, 171, 102, 28);
 		contentPane.add(btnAdicionar);
+		
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Menu(funcionario).setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBackground(Color.YELLOW);
+		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnVoltar.setBounds(327, 348, 102, 28);
+		contentPane.add(btnVoltar);
 		
 	}
 	

@@ -9,9 +9,10 @@ public class Conexao {
 	public static Connection getConexao(){
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lanchonete", "root", "");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lanchonete", "root", "root");
 		}catch(SQLException e) {
 			System.err.println("Erro");
+			e.getMessage();
 		}
 		return conn;
 	}

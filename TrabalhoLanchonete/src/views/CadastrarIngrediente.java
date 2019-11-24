@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import database.dao.IngredienteDAO;
+import database.models.Funcionario;
 import database.models.Ingrediente;
 
 public class CadastrarIngrediente extends JFrame {
@@ -29,7 +30,7 @@ public class CadastrarIngrediente extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -44,8 +45,9 @@ public class CadastrarIngrediente extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param funcionario 
 	 */
-	public CadastrarIngrediente() {
+	public CadastrarIngrediente(Funcionario funcionario) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 720, 421);
 		contentPane = new JPanel();
@@ -113,7 +115,7 @@ public class CadastrarIngrediente extends JFrame {
 						if (id.cadastrar(ingrediente)) {
 							JOptionPane.showMessageDialog(null, "Ingrediente Cadastrado");
 							limparDados();
-							new GestaoIngredientes().setVisible(true);
+							new GestaoIngredientes(funcionario).setVisible(true);
 							dispose();
 						}
 						else
@@ -126,7 +128,11 @@ public class CadastrarIngrediente extends JFrame {
 		});
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
 		btnNewButton.setBackground(Color.GREEN);
+<<<<<<< HEAD
 		btnNewButton.setBounds(229, 270, 109, 28);
+=======
+		btnNewButton.setBounds(195, 270, 109, 28);
+>>>>>>> branch 'master' of https://github.com/Predo99/TrabalhoLanchonete.git
 		contentPane.add(btnNewButton);
 		
 		JButton btnLimpar = new JButton("Limpar");
@@ -139,12 +145,17 @@ public class CadastrarIngrediente extends JFrame {
 		});
 		btnLimpar.setBackground(Color.RED);
 		btnLimpar.setFont(new Font("Arial", Font.BOLD, 14));
+<<<<<<< HEAD
 		btnLimpar.setBounds(348, 270, 109, 28);
+=======
+		btnLimpar.setBounds(338, 270, 109, 28);
+>>>>>>> branch 'master' of https://github.com/Predo99/TrabalhoLanchonete.git
 		contentPane.add(btnLimpar);
 		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				new GestaoIngredientes().setVisible(true);
 				dispose();
 			}
@@ -152,6 +163,15 @@ public class CadastrarIngrediente extends JFrame {
 		btnVoltar.setBackground(Color.YELLOW);
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnVoltar.setBounds(467, 270, 89, 27);
+=======
+				new GestaoIngredientes(funcionario).setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBackground(Color.YELLOW);
+		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnVoltar.setBounds(478, 271, 89, 27);
+>>>>>>> branch 'master' of https://github.com/Predo99/TrabalhoLanchonete.git
 		contentPane.add(btnVoltar);
 	}
 
