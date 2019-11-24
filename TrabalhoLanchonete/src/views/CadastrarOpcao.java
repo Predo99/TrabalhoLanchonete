@@ -2,7 +2,6 @@ package views;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
@@ -35,7 +35,6 @@ import database.dao.OpcaoDAO;
 import database.models.Funcionario;
 import database.models.Ingrediente;
 import database.models.Opcao;
-import javax.swing.JScrollPane;
 
 public class CadastrarOpcao extends JFrame {
 
@@ -69,6 +68,7 @@ public class CadastrarOpcao extends JFrame {
 	 * Create the frame.
 	 */
 	public CadastrarOpcao(Funcionario funcionario) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 720, 421);
 		contentPane = new JPanel();

@@ -1,11 +1,23 @@
 package views;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
@@ -17,25 +29,9 @@ import database.dao.IngredienteDAO;
 import database.models.Funcionario;
 import database.models.Ingrediente;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.List;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 public class GestaoIngredientes extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField_Pesquisa;
 	private JTable table;
@@ -62,6 +58,7 @@ public class GestaoIngredientes extends JFrame {
 	 * @param funcionario 
 	 */
 	public GestaoIngredientes(Funcionario funcionario) {
+		setResizable(false);
 		IngredienteDAO id = new IngredienteDAO();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 453, 442);
@@ -88,7 +85,10 @@ public class GestaoIngredientes extends JFrame {
 					"Nome", "Custo", "Quantidade"
 			}
 		) {
-			 @Override
+	
+			private static final long serialVersionUID = 1L;
+
+			@Override
 			 public boolean isCellEditable(int row, int column) {
 		       //all cells false
 		       return false;
