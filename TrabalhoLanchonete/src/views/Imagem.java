@@ -1,8 +1,6 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -19,6 +17,7 @@ import database.models.Opcao;
 
 public class Imagem extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 	/**
@@ -41,6 +40,7 @@ public class Imagem extends JFrame {
 	 * Create the frame.
 	 */
 	public Imagem(Opcao opcao) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 324, 260);
 		contentPane = new JPanel();

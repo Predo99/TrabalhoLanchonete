@@ -1,12 +1,9 @@
 package views;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,23 +30,16 @@ public class CadastrarFuncionario extends JFrame {
 
 	/**
 	 * Launch the application.
-	 * @param funcionario 
+	 * 
+	 * @param funcionario
 	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CadastrarFuncionario frame = new CadastrarFuncionario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
+	/*
+	 * public static void main(String[] args) { EventQueue.invokeLater(new
+	 * Runnable() { public void run() { try { CadastrarFuncionario frame = new
+	 * CadastrarFuncionario(); frame.setVisible(true); } catch (Exception e) {
+	 * e.printStackTrace(); } } }); }
+	 * 
+	 * /** Create the frame.
 	 */
 	public CadastrarFuncionario(Funcionario funcionario) {
 		setResizable(false);
@@ -124,24 +114,15 @@ public class CadastrarFuncionario extends JFrame {
 
 		btnCadastrar.addActionListener(new ActionListener() {
 
-			// limpar dados apos salvar
-			private void limparDados() {
-				textNomeFuncionario.setText("");
-				textCPF.setText("");
-				rdbtnCaixa.setSelected(false);
-				rdbtnGerente.setSelected(false);
-				passwordFuncionario.setText("");
-				textSalario.setText("");
-			}
-
 			// Salvar
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (textNomeFuncionario.getText().equals("")|| textCPF.getText().equals("")
-							|| textSalario.getText().equals("") || new String(passwordFuncionario.getPassword()).equals("")
+					if (textNomeFuncionario.getText().equals("") || textCPF.getText().equals("")
+							|| textSalario.getText().equals("")
+							|| new String(passwordFuncionario.getPassword()).equals("")
 							|| !rdbtnCaixa.isSelected() && !rdbtnGerente.isSelected()) {
 						JOptionPane.showMessageDialog(null, "Alguns campos estão vazios!");
-					} else {	
+					} else {
 						String nome = textNomeFuncionario.getText();
 						String cpf = textCPF.getText();
 						boolean gerente = false;
@@ -154,15 +135,15 @@ public class CadastrarFuncionario extends JFrame {
 
 						String senha = new String(passwordFuncionario.getPassword());
 						String salario = textSalario.getText();
-						
-						Funcionario funcionario = new Funcionario(nome, cpf, senha, Double.parseDouble(salario), gerente);
+
+						Funcionario funcionario = new Funcionario(nome, cpf, senha, Double.parseDouble(salario),
+								gerente);
 						FuncionarioDAO fd = new FuncionarioDAO();
 						if (fd.cadastrar(funcionario)) {
 							JOptionPane.showMessageDialog(null, "Funcionário Cadastrado");
 							new GestaoFuncionarios(funcionario).setVisible(true);
 							dispose();
-						}
-						else
+						} else
 							JOptionPane.showMessageDialog(null, "Funcionário já cadastrado ou dados inválidos");
 					}
 				} catch (Error err) {
@@ -212,7 +193,7 @@ public class CadastrarFuncionario extends JFrame {
 		textSalario.setBounds(284, 269, 140, 20);
 		contentPane.add(textSalario);
 		textSalario.setColumns(10);
-		
+
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

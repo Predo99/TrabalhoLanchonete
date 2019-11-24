@@ -1,7 +1,5 @@
 package views;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import database.models.Funcionario;
-import database.models.Ingrediente;
+import java.awt.Color;
 
 public class Menu extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnIngredientes;
 	private JButton btnOpcao;
@@ -24,9 +23,6 @@ public class Menu extends JFrame {
 	private JButton btnRelatorio;
 	private JButton btnSair;
 
-	/**
-	 * Launch the application.
-	 */
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,6 +41,7 @@ public class Menu extends JFrame {
 	 * @param funcionario 
 	 */
 	public Menu(Funcionario funcionario) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 324);
 		contentPane = new JPanel();
@@ -114,6 +111,8 @@ public class Menu extends JFrame {
 		contentPane.add(btnRelatorio);
 		
 		btnSair = new JButton("Sair");
+		btnSair.setBackground(Color.RED);
+		btnSair.setForeground(Color.WHITE);
 		btnSair.setFont(new Font("Arial", Font.BOLD, 15));
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

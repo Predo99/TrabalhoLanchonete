@@ -1,9 +1,7 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,8 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -23,10 +22,9 @@ import javax.swing.table.TableColumn;
 import database.models.Ingrediente;
 import database.models.Opcao;
 
-import javax.swing.JScrollPane;
-
 public class ListaIngredientes extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
 
@@ -52,6 +50,7 @@ public class ListaIngredientes extends JFrame {
 	 */
 	@SuppressWarnings("serial")
 	public ListaIngredientes(Opcao opcao) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 353, 249);
 		contentPane = new JPanel();
