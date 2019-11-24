@@ -23,6 +23,7 @@ import javax.swing.table.TableRowSorter;
 
 import database.dao.FuncionarioDAO;
 import database.models.Funcionario;
+import database.models.Ingrediente;
 
 public class GestaoFuncionarios extends JFrame {
 
@@ -114,7 +115,8 @@ public class GestaoFuncionarios extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() >= 0) {
-					
+					Funcionario aux = fd.consultar((String) table.getValueAt(table.getSelectedRow(), 1));
+					new CadastrarFuncionario(funcionario,aux).setVisible(true);
 				}else
 					JOptionPane.showMessageDialog(null, "Selecione um funcionário na lista para realizar a operação.");
 			}

@@ -138,6 +138,16 @@ public class GestaoIngredientes extends JFrame {
 		contentPane.add(btnAdicionar);
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(table.getSelectedRow() >= 0) {
+					Ingrediente aux = id.consultar((String) table.getValueAt(table.getSelectedRow(), 0));
+					new CadastrarIngrediente(funcionario,aux).setVisible(true);
+					dispose();
+				}else
+					JOptionPane.showMessageDialog(null, "Selecione um funcionário na lista para realizar a operação.");
+			}
+		});
 		btnEditar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnEditar.setBackground(Color.YELLOW);
 		btnEditar.setBounds(327, 253, 100, 23);
@@ -148,7 +158,7 @@ public class GestaoIngredientes extends JFrame {
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() >= 0) {
-					if(id.remover((String) table.getValueAt(table.getSelectedRow(), 1))) {
+					if(id.remover((String) table.getValueAt(table.getSelectedRow(), 0))) {
 						JOptionPane.showMessageDialog(null, "Funcionário excluído.");
 						model.removeRow(table.getSelectedRow());
 					}	

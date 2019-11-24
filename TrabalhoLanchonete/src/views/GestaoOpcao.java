@@ -153,7 +153,8 @@ public class GestaoOpcao extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(table.getSelectedRow() >= 0) {
-					
+					Opcao aux = od.consultar((String) table.getValueAt(table.getSelectedRow(), 0));
+					new CadastrarOpcao(funcionario,aux).setVisible(true);
 				}else
 					JOptionPane.showMessageDialog(null, "Selecione uma opção na lista para realizar a operação.");
 			}

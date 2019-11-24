@@ -149,18 +149,8 @@ public class GestaoCardapio extends JFrame {
 		button.setForeground(Color.WHITE);
 		button.setFont(new Font("Arial", Font.BOLD, 14));
 		button.setBackground(Color.RED);
-		button.setBounds(285, 235, 120, 28);
+		button.setBounds(285, 236, 120, 28);
 		contentPane.add(button);
-		
-		JButton button_1 = new JButton("Editar");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		button_1.setFont(new Font("Arial", Font.BOLD, 14));
-		button_1.setBackground(Color.YELLOW);
-		button_1.setBounds(285, 196, 120, 28);
-		contentPane.add(button_1);
 		
 		JButton button_2 = new JButton("Ingredientes");
 		button_2.addActionListener(new ActionListener() {
@@ -174,7 +164,7 @@ public class GestaoCardapio extends JFrame {
 		});
 		button_2.setFont(new Font("Arial", Font.BOLD, 13));
 		button_2.setBackground(Color.GREEN);
-		button_2.setBounds(285, 157, 120, 28);
+		button_2.setBounds(285, 197, 120, 28);
 		contentPane.add(button_2);
 		
 		JButton button_3 = new JButton("Imagem");
@@ -192,7 +182,7 @@ public class GestaoCardapio extends JFrame {
 		});
 		button_3.setFont(new Font("Arial", Font.BOLD, 13));
 		button_3.setBackground(Color.GREEN);
-		button_3.setBounds(285, 118, 120, 28);
+		button_3.setBounds(285, 158, 120, 28);
 		contentPane.add(button_3);
 		
 		JButton button_4 = new JButton("Adicionar");
@@ -204,7 +194,7 @@ public class GestaoCardapio extends JFrame {
 		});
 		button_4.setFont(new Font("Arial", Font.BOLD, 13));
 		button_4.setBackground(Color.GREEN);
-		button_4.setBounds(285, 81, 120, 26);
+		button_4.setBounds(285, 121, 120, 26);
 		contentPane.add(button_4);
 		
 		JButton btnVoltar = new JButton("Voltar");

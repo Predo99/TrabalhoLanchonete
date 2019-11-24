@@ -39,4 +39,16 @@ public class Ingrediente {
 	public void setCusto(double custo) {
 		this.custo = custo;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (obj == this)  
+			return true; 
+		if (!(obj instanceof Ingrediente))
+			return false; 
+		Ingrediente ingrediente = (Ingrediente) obj; 
+		
+		return nomei.equals(ingrediente.nomei);
+	}
 }

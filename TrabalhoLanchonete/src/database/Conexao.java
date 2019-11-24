@@ -9,7 +9,7 @@ public class Conexao {
 	public static Connection getConexao(){
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lanchonete", "root", "root");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lanchonete", "root", "");
 		}catch(SQLException e) {
 			System.err.println("Erro");
 			e.getMessage();
