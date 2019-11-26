@@ -51,6 +51,7 @@ public class AdicionarCardapio extends JFrame {
 	 * /** Create the frame.
 	 */
 	public AdicionarCardapio(Funcionario funcionario) {
+		setTitle("Adicionar Caardápio");
 		setResizable(false);
 		CardapioDAO cd = new CardapioDAO();
 		OpcaoDAO od = new OpcaoDAO();
