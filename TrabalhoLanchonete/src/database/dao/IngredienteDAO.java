@@ -84,7 +84,7 @@ public class IngredienteDAO {
     }
     
     public List<Ingrediente> consultar (){
-    	List<Ingrediente> ingredientes = new ArrayList();
+    	List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
     	try {
     		String sql = "select * from ingrediente";
     		PreparedStatement stmt = connection.prepareStatement(sql);

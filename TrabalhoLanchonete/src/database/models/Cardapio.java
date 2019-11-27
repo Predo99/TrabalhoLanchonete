@@ -1,19 +1,18 @@
 package database.models;
 
 import java.util.List;
+
 public class Cardapio {
-	
+
 	private int id;
-	
+
 	private List<Opcao> opcoes;
 
-	
 	public Cardapio(int id, List<Opcao> opcoes) {
 		super();
 		this.id = id;
 		this.opcoes = opcoes;
 	}
-	
 
 	public int getId() {
 		return id;
@@ -36,6 +35,4 @@ public class Cardapio {
 		return "Cardapio [id=" + id + ", opcoes=" + opcoes + "]";
 	}
 
-	
-	
 }

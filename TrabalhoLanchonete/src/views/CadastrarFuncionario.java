@@ -42,6 +42,7 @@ public class CadastrarFuncionario extends JFrame {
 	 * /** Create the frame.
 	 */
 	public CadastrarFuncionario(Funcionario funcionario) {
+		setTitle("Cadastro de Funcionários");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 720, 421);

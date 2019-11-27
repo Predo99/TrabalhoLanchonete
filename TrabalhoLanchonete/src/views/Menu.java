@@ -22,6 +22,7 @@ public class Menu extends JFrame {
 	private JButton btnCardapio;
 	private JButton btnRelatorio;
 	private JButton btnSair;
+	private JButton btnVerCardapio;
 
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -41,6 +42,7 @@ public class Menu extends JFrame {
 	 * @param funcionario 
 	 */
 	public Menu(Funcionario funcionario) {
+		setTitle("Menu");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 324);
@@ -122,6 +124,17 @@ public class Menu extends JFrame {
 		});
 		btnSair.setBounds(326, 208, 98, 50);
 		contentPane.add(btnSair);
+		
+		btnVerCardapio = new JButton("Cardápio");
+		btnVerCardapio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Cardapio().setVisible(true);
+				dispose();
+			}
+		});
+		btnVerCardapio.setFont(new Font("Arial", Font.PLAIN, 13));
+		btnVerCardapio.setBounds(10, 208, 172, 50);
+		contentPane.add(btnVerCardapio);
 	}
 
 }

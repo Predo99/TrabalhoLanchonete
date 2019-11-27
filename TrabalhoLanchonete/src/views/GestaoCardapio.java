@@ -58,6 +58,7 @@ public class GestaoCardapio extends JFrame {
 	 * @param funcionario 
 	 */
 	public GestaoCardapio(Funcionario funcionario) {
+		setTitle("Gestão de Cardápio");
 		setResizable(false);
 		CardapioDAO cd = new CardapioDAO();
 		OpcaoDAO od = new OpcaoDAO();

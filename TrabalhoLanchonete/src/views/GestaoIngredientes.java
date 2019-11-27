@@ -58,6 +58,7 @@ public class GestaoIngredientes extends JFrame {
 	 * @param funcionario 
 	 */
 	public GestaoIngredientes(Funcionario funcionario) {
+		setTitle("Gestão de Ingredientes");
 		setResizable(false);
 		IngredienteDAO id = new IngredienteDAO();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

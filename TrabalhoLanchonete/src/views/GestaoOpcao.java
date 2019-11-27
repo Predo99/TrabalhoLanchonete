@@ -58,6 +58,7 @@ public class GestaoOpcao extends JFrame {
 	 */
 	@SuppressWarnings("serial")
 	public GestaoOpcao(Funcionario funcionario) {
+		setTitle("Gestão de Opção");
 		setResizable(false);
 		OpcaoDAO od = new OpcaoDAO();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
