@@ -52,4 +52,16 @@ public class Opcao {
 		this.ingredientes = ingredientes;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (obj == this)  
+			return true; 
+		if (!(obj instanceof Opcao))
+			return false; 
+		Opcao opcao = (Opcao) obj; 
+		
+		return nomeo.equals(opcao.nomeo);
+	}
+	
 }

@@ -110,7 +110,7 @@ public class CadastrarIngrediente extends JFrame {
 						double custo = Double.parseDouble(textField_Custo.getText());
 						double quantidade = Double.parseDouble(textField_Quantidade.getText());
 						
-						Ingrediente ingrediente = new Ingrediente(nome,custo,quantidade);
+						Ingrediente ingrediente = new Ingrediente(nome,quantidade,custo);
 						IngredienteDAO id = new IngredienteDAO();
 						
 						if (id.cadastrar(ingrediente)) {

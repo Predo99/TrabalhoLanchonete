@@ -34,10 +34,14 @@ public class CardapioDAO {
 				stmt2.setString(1, rs.getString("nomeo"));
 				ResultSet rs2 = stmt2.executeQuery();
 				while (rs2.next()) {
-
 					Opcao o = new Opcao();
 					o.setNomeo(rs2.getString("nomeo"));
 					o.setPreco(rs2.getDouble("preco"));
+					if (rs2.getBytes("imagem") != null) {
+						byte[] data = rs2.getBytes("imagem");
+						o.setImagem(data);
+					} else
+						o.setImagem(null);
 					opcoes.add(o);
 				}
 				stmt2.close();
