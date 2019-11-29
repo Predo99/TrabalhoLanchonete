@@ -36,7 +36,6 @@ public class Cardapio extends JFrame {
 	private JTable table1;
 	private CardapioDAO cd;
 	private OpcaoDAO od;
-	private int contador = 0;
 	private JTable table;
 	double preco = 0;
 	private ImageIcon img;
