@@ -147,7 +147,7 @@ public class GestaoOpcao extends JFrame {
 		btnExcluir.setForeground(Color.WHITE);
 		btnExcluir.setBackground(Color.RED);
 		btnExcluir.setFont(new Font("Arial", Font.BOLD, 14));
-		btnExcluir.setBounds(327, 238, 89, 28);
+		btnExcluir.setBounds(305, 238, 120, 28);
 		contentPane.add(btnExcluir);
 		
 		JButton btnEditar = new JButton("Editar");
@@ -162,7 +162,7 @@ public class GestaoOpcao extends JFrame {
 		});
 		btnEditar.setBackground(Color.YELLOW);
 		btnEditar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnEditar.setBounds(327, 199, 89, 28);
+		btnEditar.setBounds(305, 199, 120, 28);
 		contentPane.add(btnEditar);
 		
 		JButton btnListar = new JButton("Ingredientes");
@@ -195,7 +195,7 @@ public class GestaoOpcao extends JFrame {
 		});
 		btnImagem.setBackground(Color.GREEN);
 		btnImagem.setFont(new Font("Arial", Font.BOLD, 13));
-		btnImagem.setBounds(327, 121, 89, 28);
+		btnImagem.setBounds(305, 121, 120, 28);
 		contentPane.add(btnImagem);
 		
 		JButton btnAdicionar = new JButton("Adicionar");
@@ -207,7 +207,7 @@ public class GestaoOpcao extends JFrame {
 		});
 		btnAdicionar.setBackground(Color.GREEN);
 		btnAdicionar.setFont(new Font("Arial", Font.BOLD, 13));
-		btnAdicionar.setBounds(314, 84, 111, 26);
+		btnAdicionar.setBounds(305, 84, 120, 26);
 		contentPane.add(btnAdicionar);
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -219,7 +219,7 @@ public class GestaoOpcao extends JFrame {
 		});
 		btnVoltar.setBackground(Color.YELLOW);
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnVoltar.setBounds(327, 277, 89, 27);
+		btnVoltar.setBounds(305, 277, 120, 27);
 		contentPane.add(btnVoltar);
 	}
 

@@ -135,19 +135,23 @@ public class CadastrarFuncionario extends JFrame {
 						}
 
 						String senha = new String(passwordFuncionario.getPassword());
-						String salario = textSalario.getText();
-
-						Funcionario funcionario = new Funcionario(nome, cpf, senha, Double.parseDouble(salario),
-								gerente);
-						FuncionarioDAO fd = new FuncionarioDAO();
-						if (fd.cadastrar(funcionario)) {
-							JOptionPane.showMessageDialog(null, "Funcionário Cadastrado");
-							new GestaoFuncionarios(funcionario).setVisible(true);
-							dispose();
-						} else
-							JOptionPane.showMessageDialog(null, "Funcionário já cadastrado ou dados inválidos");
+						String salarioString = textSalario.getText();
+						double salario = Double.parseDouble(salarioString);
+						
+						if (salario <= 0) {
+							JOptionPane.showMessageDialog(null, "Salário do funcionário inválido");
+						} else {
+							Funcionario funcionario = new Funcionario(nome, cpf, senha, salario, gerente);
+							FuncionarioDAO fd = new FuncionarioDAO();
+							if (fd.cadastrar(funcionario)) {
+								JOptionPane.showMessageDialog(null, "Funcionário Cadastrado");
+								new GestaoFuncionarios(funcionario).setVisible(true);
+								dispose();
+							} else
+								JOptionPane.showMessageDialog(null, "Funcionário já cadastrado ou dados inválidos");
+						}
 					}
-				} catch (Error err) {
+				} catch (Exception err) {
 					JOptionPane.showMessageDialog(null, "Dados inválidos");
 				}
 
@@ -255,9 +259,9 @@ public class CadastrarFuncionario extends JFrame {
 		contentPane.add(lblGerente);
 
 		JRadioButton rdbtnGerente = new JRadioButton("Gerente\r\n");
-		
+
 		JRadioButton rdbtnCaixa = new JRadioButton("Caixa");
-		
+
 		// verifica se um radio está selecionado e apaga o outro
 		rdbtnGerente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -283,15 +287,14 @@ public class CadastrarFuncionario extends JFrame {
 		rdbtnCaixa.setBackground(Color.LIGHT_GRAY);
 		rdbtnCaixa.setFont(new Font("Arial", Font.PLAIN, 12));
 		contentPane.add(rdbtnCaixa);
-		
-		if(aux.isGerente()) {
+
+		if (aux.isGerente()) {
 			rdbtnGerente.setSelected(true);
 			rdbtnCaixa.setSelected(false);
-		}else {
+		} else {
 			rdbtnCaixa.setSelected(true);
 			rdbtnGerente.setSelected(false);
 		}
-
 
 		JButton btnCadastrar = new JButton("Cadastrar");
 

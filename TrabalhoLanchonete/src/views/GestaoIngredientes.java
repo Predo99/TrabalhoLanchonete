@@ -146,7 +146,7 @@ public class GestaoIngredientes extends JFrame {
 					new CadastrarIngrediente(funcionario,aux).setVisible(true);
 					dispose();
 				}else
-					JOptionPane.showMessageDialog(null, "Selecione um funcionário na lista para realizar a operação.");
+					JOptionPane.showMessageDialog(null, "Selecione um Ingrediente na lista para realizar a operação.");
 			}
 		});
 		btnEditar.setFont(new Font("Arial", Font.BOLD, 14));
@@ -160,13 +160,13 @@ public class GestaoIngredientes extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() >= 0) {
 					if(id.remover((String) table.getValueAt(table.getSelectedRow(), 0))) {
-						JOptionPane.showMessageDialog(null, "Funcionário excluído.");
+						JOptionPane.showMessageDialog(null, "Ingrediente excluído.");
 						model.removeRow(table.getSelectedRow());
 					}	
 					else
-						JOptionPane.showMessageDialog(null, "Erro ao excluir funcionario.");
+						JOptionPane.showMessageDialog(null, "Erro ao excluir Ingrediente.");
 				}else
-					JOptionPane.showMessageDialog(null, "Selecione um funcionário na lista para realizar a operação.");
+					JOptionPane.showMessageDialog(null, "Selecione um ingrediente na lista para realizar a operação.");
 			}
 		});
 		btnExcluir.setBackground(Color.RED);
@@ -182,7 +182,7 @@ public class GestaoIngredientes extends JFrame {
 		});
 		btnVoltar.setBackground(Color.YELLOW);
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnVoltar.setBounds(338, 349, 89, 27);
+		btnVoltar.setBounds(327, 349, 100, 27);
 		contentPane.add(btnVoltar);
 	}
 	private void preencher(IngredienteDAO id, DefaultTableModel model) {
