@@ -19,7 +19,6 @@ public class CardapioDAO {
 	}
 
 	public ArrayList<Opcao> mostrarOpcoes() {
-
 		ArrayList<Opcao> opcoes = new ArrayList<Opcao>();
 		try {
 			String sql = "select * from opcoes_cardapio";
@@ -49,17 +48,14 @@ public class CardapioDAO {
 			}
 			rs.close();
 			stmt.close();
-
+			return opcoes;
 		} catch (SQLException e) {
 			System.out.println("--Consulta Inválida--");
-
+			return opcoes;
 		}
-		return opcoes;
-
 	}
 
 	public boolean addOpcao(Opcao o) {
-
 		try {
 			String sql = "insert into opcoes_cardapio (codigoc,nomeo) values(?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -67,16 +63,10 @@ public class CardapioDAO {
 			stmt.setString(2, o.getNomeo());
 			stmt.execute();
 			stmt.close();
-
+			return true;
 		} catch (SQLException e) {
-
-			// e.printStackTrace();
 			return false;
-
 		}
-
-		return true;
-
 	}
 
 	public boolean removeOpcao(String o) {
@@ -86,13 +76,9 @@ public class CardapioDAO {
 			stmt.setString(1, o);
 			stmt.execute();
 			stmt.close();
-
+			return true;
 		} catch (SQLException e) {
-
-			e.printStackTrace();
-
+			return false;
 		}
-
-		return true;
 	}
 }

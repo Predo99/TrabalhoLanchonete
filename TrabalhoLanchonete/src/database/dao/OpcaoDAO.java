@@ -35,19 +35,32 @@ public class OpcaoDAO {
 			stmt.execute();
 			stmt.close();
 
-			sql = "insert into ingredientes_opcao (nomei, nomeo) values (?,?)";
-			stmt = connection.prepareStatement(sql);
-			for (int i = 0; i < opcao.getIngredientes().size(); i++) {
-				stmt.setString(1, opcao.getIngredientes().get(i).getNomei());
-				stmt.setString(2, opcao.getNomeo());
-				stmt.execute();
-			}
-			stmt.close();
-			return true;
+			if(addIngredientes(opcao))
+            	return true;
+            else {
+            	remover(opcao.getNomeo());
+            	return false;
+            }
 		} catch (SQLException e) {
 			return false;
 		}
 	}
+	
+	private boolean addIngredientes(Opcao opcao) {
+		try { 
+			String sql = "insert into ingredientes_opcao (nomei, nomeo) values (?,?)";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            for(int i = 0; i < opcao.getIngredientes().size(); i++) {
+            	stmt.setString(1, opcao.getIngredientes().get(i).getNomei());
+            	stmt.setString(2, opcao.getNomeo());
+            	stmt.execute();
+            }
+            stmt.close();
+			return true;
+		}catch(SQLException e) {
+			return false;
+		}
+    }
 
 	public boolean atualizar(Opcao opcao) {
 		try {

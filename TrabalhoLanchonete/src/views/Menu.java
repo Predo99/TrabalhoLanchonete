@@ -106,7 +106,8 @@ public class Menu extends JFrame {
 		btnRelatorio.setFont(new Font("Arial", Font.PLAIN, 13));
 		btnRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				new Relatorios(funcionario).setVisible(true);
+				dispose();
 			}
 		});
 		btnRelatorio.setBounds(10, 132, 172, 50);
