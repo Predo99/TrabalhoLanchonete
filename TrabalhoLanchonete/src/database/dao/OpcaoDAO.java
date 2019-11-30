@@ -80,6 +80,26 @@ public class OpcaoDAO {
 			return false;
 		}
 	}
+	
+	public boolean atualizar(Opcao opcao,String nomeo) {
+		try {
+			String sql = "update opcao set preco = ?, imagem = ?, nomeo = ? where nomeo = ?";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setDouble(1, opcao.getPreco());
+			if (opcao.getImagem() != null) {
+				SerialBlob blob = new SerialBlob(opcao.getImagem());
+				stmt.setBlob(2, blob);
+			} else
+				stmt.setNull(2, java.sql.Types.BLOB);
+			stmt.setString(3, opcao.getNomeo());
+			stmt.setString(4, nomeo);
+			stmt.execute();
+			stmt.close();
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
 
 	public boolean atualizar(String nomeo, double preco) {
 		try {

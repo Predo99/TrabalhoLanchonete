@@ -436,7 +436,7 @@ public class CadastrarOpcao extends JFrame {
 						Opcao opcao = new Opcao(nome, preco, data, ingredientes);
 						OpcaoDAO od = new OpcaoDAO();
 
-						if (od.atualizar(opcao)) {
+						if (od.atualizar(opcao,aux.getNomeo())) {
 							JOptionPane.showMessageDialog(null, "Opção Atualizada");
 							limparDados();
 							new GestaoOpcao(funcionario).setVisible(true);

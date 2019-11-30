@@ -48,6 +48,22 @@ public class IngredienteDAO {
         }
     }
     
+    public boolean atualizar (Ingrediente ingrediente,String nomei) {
+    	try {
+            String sql = "update ingrediente set quantidade = ?, custo = ?, nomei = ? where nomei = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setDouble(1, ingrediente.getQuantidade());
+            stmt.setDouble(2, ingrediente.getCusto());
+            stmt.setString(3, ingrediente.getNomei());
+            stmt.setString(4, nomei);
+            stmt.execute();
+            stmt.close();
+            return true;
+    	}catch (SQLException e) {
+    		return false;
+        }
+    }
+    
     public boolean atualizar (String nomei, String coluna, Double valor) {
     	try {
             String sql = "update ingrediente set " + coluna + " = ? where nomei = ?";
