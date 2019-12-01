@@ -1,8 +1,6 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,31 +15,15 @@ import javax.swing.border.EmptyBorder;
 
 import database.dao.PedidoDAO;
 import database.models.Funcionario;
-import database.models.Ingrediente;
 
 public class Relatorios extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblDigite;
 	private JTextArea textRelatorio;
 	private PedidoDAO pd = new PedidoDAO();
 	private JButton btnVoltar;
-
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Relatorios frame = new Relatorios();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

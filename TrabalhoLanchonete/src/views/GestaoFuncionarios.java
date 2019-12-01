@@ -37,7 +37,7 @@ public class GestaoFuncionarios extends JFrame {
 	 * 
 	 * @param funcionario
 	 */
-	@SuppressWarnings({ "unchecked", "serial" })
+	@SuppressWarnings({ "serial" })
 	public GestaoFuncionarios(Funcionario funcionario) {
 		setTitle("Gestão de Funcionários");
 		FuncionarioDAO fd = new FuncionarioDAO();
