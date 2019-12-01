@@ -30,9 +30,4 @@ public class Cardapio {
 		this.opcoes = opcoes;
 	}
 
-	@Override
-	public String toString() {
-		return "Cardapio [id=" + id + ", opcoes=" + opcoes + "]";
-	}
-
 }

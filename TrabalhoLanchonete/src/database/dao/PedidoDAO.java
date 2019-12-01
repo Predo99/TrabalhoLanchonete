@@ -75,6 +75,7 @@ public class PedidoDAO {
 				return false;
 			}		
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -157,6 +158,7 @@ public class PedidoDAO {
 
 			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -170,26 +172,13 @@ public class PedidoDAO {
 			stmt.close();	
 			return true;
 		}catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
 
 	public boolean cadastrarComplementos (Pedido pedido, int indice, List<Ingrediente> complementos) {
 		try {
-			IngredienteDAO id = new IngredienteDAO();
-			List<Ingrediente> ingredientes = new ArrayList();
-
-			for (int i = 0; i < complementos.size(); i++) {
-				Ingrediente ingrediente = id.consultar(complementos.get(i).getNomei());
-				if(ingrediente.getQuantidade() != 0) {
-					ingredientes.add(ingrediente);
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Ingrediente " + complementos.get(i).getNomei() 
-							+  "em falta para a opção ");
-					return false;
-				}
-			}
 			String sql = "insert into complementos (indice, codigop, nomeo, nomei) values (?,?,?,?)";;
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			for(int i = 0; i < complementos.size(); i++)
@@ -204,7 +193,7 @@ public class PedidoDAO {
 
 			stmt.close();
 
-			pedido.addComplementos(pedido.getOpcoes().get(indice), complementos);
+			pedido.addComplementos();
 			sql = "update pedido set preco = ? where codigop = ?";
 			stmt = connection.prepareStatement(sql);
 			stmt.setDouble(1, pedido.getPreco());
@@ -212,11 +201,9 @@ public class PedidoDAO {
 			stmt.execute();
 			stmt.close();
 
-			for(int i = 0; i < ingredientes.size(); i++)
-				id.atualizar(ingredientes.get(i).getNomei(), "quantidade", ingredientes.get(i).getQuantidade()-1);
-
 			return true;
 		}catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -227,35 +214,26 @@ public class PedidoDAO {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			for(int i = 0; i < remocoes.size(); i++)
 			{
-				if(pedido.getOpcoes().get(indice).getIngredientes().contains(remocoes.get(i))) {
-					stmt.setInt(1, indice);
-					stmt.setInt(2, pedido.getCodigop());
-					stmt.setString(3, pedido.getOpcoes().get(indice).getNomeo());
-					stmt.setString(4, remocoes.get(i).getNomei());
+				stmt.setInt(1, indice);
+				stmt.setInt(2, pedido.getCodigop());
+				stmt.setString(3, pedido.getOpcoes().get(indice).getNomeo());
+				stmt.setString(4, remocoes.get(i).getNomei());
 
-					stmt.execute();
-				}
+				stmt.execute();
 			}
 
 			stmt.close();
 
-			pedido.removerIngredientes(pedido.getOpcoes().get(indice), remocoes);
+			pedido.removerIngredientes();
 			sql = "update pedido set preco = ? where codigop = ?";
 			stmt = connection.prepareStatement(sql);
 			stmt.setDouble(1, pedido.getPreco());
 			stmt.setInt(2, pedido.getCodigop());
 			stmt.execute();
 			stmt.close();
-
-			IngredienteDAO id = new IngredienteDAO();
-
-			for (int i = 0; i < remocoes.size(); i++) {
-				Ingrediente ingrediente = id.consultar(remocoes.get(i).getNomei());
-				id.atualizar(ingrediente.getNomei(), "quantidade", ingrediente.getQuantidade()+1);
-			}
-
 			return true;
 		}catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -348,6 +326,18 @@ public class PedidoDAO {
 			relatorio = "Formato inválido";
 			return relatorio;
 		}
+	}
+	
+	public String gerarComprovante (Pedido pedido) {
+		String aux = "";
+		aux += "Pedido código " + pedido.getCodigop() + " realizado em: " + pedido.getData() + "\n" 
+					+ "Embalagem: " + pedido.getEmbalagem() + "\nForma de pagamento: " + pedido.getFormaPag();
+		if(pedido.getNumCard() != null)
+			aux += "\nNúmero do cartão: " + pedido.getNumCard();
+		for(int i = 0; i < pedido.getOpcoes().size(); i++) {
+			aux += "\n" + pedido.getOpcoes().get(i).getNomeo() + " R$ " + String.format("%.2f",pedido.getOpcoes().get(i).getPreco());
+		}
+		return aux;
 	}
 
 }

@@ -76,21 +76,13 @@ public class Pedido {
 		this.opcoes = opcoes;
 	}
 
-	public void addComplementos(Opcao opcao, List<Ingrediente> complementos) {
-		opcao.getIngredientes().addAll(complementos);
-		for(int i = 0; i < complementos.size(); i++) {
-			preco += complementos.get(i).getCusto()*1.1;
-		}
+	public void addComplementos() {
+		preco = getPrecoBanco();
 	}
 
-	public void removerIngredientes(Opcao opcao, List<Ingrediente> ingredientes)
+	public void removerIngredientes()
 	{
-		for(int i = 0; i < ingredientes.size(); i++) {
-			if(opcao.getIngredientes().contains(ingredientes.get(i))) {
-				opcao.getIngredientes().remove(ingredientes.get(i));
-				preco -= ingredientes.get(i).getCusto();
-			}	
-		}
+		preco = getPrecoBanco();
 	}
 
 	public java.sql.Date getDataB(){

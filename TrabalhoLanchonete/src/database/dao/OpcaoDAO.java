@@ -75,13 +75,17 @@ public class OpcaoDAO {
 			stmt.setString(3, opcao.getNomeo());
 			stmt.execute();
 			stmt.close();
-			return true;
+			
+			if(atualizar(opcao.getNomeo(), opcao.getIngredientes()))
+				return true;
+			else
+				return false;
 		} catch (SQLException e) {
 			return false;
 		}
 	}
 	
-	public boolean atualizar(Opcao opcao,String nomeo) {
+	public boolean atualizar(Opcao opcao, String nomeo) {
 		try {
 			String sql = "update opcao set preco = ?, imagem = ?, nomeo = ? where nomeo = ?";
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -95,21 +99,11 @@ public class OpcaoDAO {
 			stmt.setString(4, nomeo);
 			stmt.execute();
 			stmt.close();
-			return true;
-		} catch (SQLException e) {
-			return false;
-		}
-	}
-
-	public boolean atualizar(String nomeo, double preco) {
-		try {
-			String sql = "update opcao set preco = ? where nomeo = ?";
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setDouble(1, preco);
-			stmt.setString(2, nomeo);
-			stmt.execute();
-			stmt.close();
-			return true;
+			
+			if(atualizar(opcao.getNomeo(), opcao.getIngredientes()))
+				return true;
+			else
+				return false;
 		} catch (SQLException e) {
 			return false;
 		}
@@ -133,12 +127,22 @@ public class OpcaoDAO {
 		}
 	}
 
-	public boolean atualizar(String nomeo, List<Ingrediente> ingredientes) {
+	private boolean atualizar(String nomeo, List<Ingrediente> ingredientes) {
 		try {
-			String sql = "delete from ingredientes_opcao where nomeo = ?";
+			String sql = "select count(*) as num from ingredientes_opcao where nomeo = ?";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, nomeo);
-			stmt.execute();
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				if(rs.getInt("num") != 0) {
+					sql = "delete from ingredientes_opcao where nomeo = ?";
+					stmt = connection.prepareStatement(sql);
+					stmt.setString(1, nomeo);
+					stmt.execute();
+					stmt.close();
+				}
+			}
+			rs.close();
 			stmt.close();
 
 			sql = "insert into ingredientes_opcao (nomei, nomeo) values (?,?)";

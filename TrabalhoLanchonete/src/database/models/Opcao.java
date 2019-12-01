@@ -52,6 +52,19 @@ public class Opcao {
 		this.ingredientes = ingredientes;
 	}
 	
+	public void addComplemento(Opcao opcao, Ingrediente complemento) {
+		opcao.getIngredientes().add(complemento);
+		preco += complemento.getCusto()*1.1;
+	}
+
+	public void removerIngrediente(Opcao opcao, Ingrediente ingrediente)
+	{
+		if(opcao.getIngredientes().contains(ingrediente)) {
+			opcao.getIngredientes().remove(ingrediente);
+			preco -= ingrediente.getCusto();
+		}	
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub

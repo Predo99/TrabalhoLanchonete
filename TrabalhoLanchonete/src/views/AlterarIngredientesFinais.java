@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import database.dao.IngredienteDAO;
@@ -40,7 +41,7 @@ public class AlterarIngredientesFinais extends JFrame {
 	private String filename = null;
 	private DefaultListModel<Ingrediente> listModel;
 
-	public AlterarIngredientesFinais(Opcao aux) {
+	public AlterarIngredientesFinais(List<Opcao> opcoes, Opcao aux) {
 		setTitle("Alterar Ingredientes Finais");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,8 +75,13 @@ public class AlterarIngredientesFinais extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Ingrediente f = fd.consultar(textProcurar.getText());
 				if (f != null) {
-					listModel.addElement(f);
-				}
+					if(f.getQuantidade() != 0) {
+						listModel.addElement(f);
+						opcoes.get(opcoes.indexOf(aux)).addComplemento(aux, f);
+					}else
+						JOptionPane.showMessageDialog(null, "Ingrediente em falta.");		
+				}else
+					JOptionPane.showMessageDialog(null, "Ingrediente não cadastrado.");
 			}
 		});
 		contentPane.add(btnProcurar);
@@ -83,38 +89,11 @@ public class AlterarIngredientesFinais extends JFrame {
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setBounds(99, 231, 109, 28);
 		btnConfirmar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (textField_Nome.getText().equals("") || textField_Preco.getText().equals("")) {
-						JOptionPane.showMessageDialog(null, "Alguns campos estão vazios!");
-					} else {
-						String nome = textField_Nome.getText();
-						double preco = Double.parseDouble(textField_Preco.getText());
-						byte[] data = aux.getImagem();
-
-						if (selectedFile != null) {
-							BufferedImage bImage = ImageIO.read(selectedFile);
-							filename = filename.substring(filename.lastIndexOf('.') + 1);
-							ByteArrayOutputStream bos = new ByteArrayOutputStream();
-							ImageIO.write(bImage, filename, bos);
-							data = bos.toByteArray();
-						}
-						List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
-						for (int i = 0; i < listModel.getSize(); i++) {
-							ingredientes.add(listModel.elementAt(i));
-						}
-						Opcao opcao = new Opcao(nome, preco, data, ingredientes);
-						OpcaoDAO od = new OpcaoDAO();
-
-						if (od.atualizar(opcao, aux.getNomeo())) {
-							JOptionPane.showMessageDialog(null, "Opção Atualizada");
-							limparDados();
-						} else
-							JOptionPane.showMessageDialog(null, "Dados inválidos");
-					}
-				} catch (Exception err) {
-					JOptionPane.showMessageDialog(null, "Dados inválidos");
-				}
+			public void actionPerformed(ActionEvent e) {	
+				JOptionPane.showMessageDialog(null, "Opção Atualizada");
+				new Pagamento(opcoes).setVisible(true);
+				dispose();
+				
 			}
 		});
 		btnConfirmar.setBackground(Color.GREEN);
@@ -152,25 +131,16 @@ public class AlterarIngredientesFinais extends JFrame {
 				return renderer;
 			}
 		});
-
-		JButton btnNewButton = new JButton("Deletar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Ingrediente f = fd.consultar(textProcurar.getText());
-				if (f != null) {
-					listModel.removeElement(f);
-				}
-			}
-		});
-		btnNewButton.setBounds(507, 174, 89, 23);
-		contentPane.add(btnNewButton);
 		
 		JButton btnDeletar = new JButton("Deletar");
 		btnDeletar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ingrediente f = fd.consultar(textProcurar.getText());
-				if (f != null) {
+				if (f != null  && aux.getIngredientes().contains(f)) {
 					listModel.removeElement(f);
+					opcoes.get(opcoes.indexOf(aux)).removerIngrediente(aux, f);
+				}else {
+					JOptionPane.showMessageDialog(null, "A opção não possui esse ingrediente.");
 				}
 			}
 		});
@@ -181,6 +151,7 @@ public class AlterarIngredientesFinais extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				new Pagamento(opcoes).setVisible(true);
 				dispose();
 			}
 		});
@@ -188,14 +159,6 @@ public class AlterarIngredientesFinais extends JFrame {
 		btnVoltar.setBackground(Color.YELLOW);
 		btnVoltar.setBounds(345, 231, 109, 28);
 		contentPane.add(btnVoltar);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Ingrediente f = fd.consultar(textProcurar.getText());
-				if (f != null) {
-					listModel.removeElement(f);
-				}
-			}
-		});
 	}
 
 	public void limparDados() {

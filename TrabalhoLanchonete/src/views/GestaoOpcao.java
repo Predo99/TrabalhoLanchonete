@@ -35,23 +35,6 @@ public class GestaoOpcao extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JButton btnImagem;
-
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GestaoOpcao frame = new GestaoOpcao();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 * @param funcionario 
@@ -86,11 +69,6 @@ public class GestaoOpcao extends JFrame {
 				"Nome", "Pre\u00E7o"
 			}
 		) {
-			/*@Override
-            public Class<?> getColumnClass(int column) {
-                if (column==0) return ImageIcon.class;
-                return Object.class;
-            }*/
 			 @Override
 			 public boolean isCellEditable(int row, int column) {
 			     //all cells false
@@ -156,6 +134,7 @@ public class GestaoOpcao extends JFrame {
 				if(table.getSelectedRow() >= 0) {
 					Opcao aux = od.consultar((String) table.getValueAt(table.getSelectedRow(), 0));
 					new CadastrarOpcao(funcionario,aux).setVisible(true);
+					dispose();
 				}else
 					JOptionPane.showMessageDialog(null, "Selecione uma opção na lista para realizar a operação.");
 			}
@@ -228,14 +207,6 @@ public class GestaoOpcao extends JFrame {
 		List<Opcao> opcoes = od.consultar();
 		Object rowData[] = new Object[2];
 		for(int i = 0; i < opcoes.size(); i++) {
-			/*if(opcoes.get(i).getImagem() != null) {
-				ImageIcon img = new ImageIcon(opcoes.get(i).getImagem());
-				Image image = img.getImage();
-				Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
-				img = new ImageIcon(newimg); 
-				rowData[0] = img;
-			}else
-				rowData[0] = null;*/
 			rowData[0] = opcoes.get(i).getNomeo();
 			rowData[1] = opcoes.get(i).getPreco();
 			model.addRow(rowData);

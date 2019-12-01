@@ -25,9 +25,6 @@ public class CardapioDAO {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				// System.out.println(rs.getInt("id")+" "+rs.getString("nomeo")+
-				// " "+rs.getInt("codigoc")+ "\n---------------");
-
 				sql = "select * from opcao where nomeo =?";
 				PreparedStatement stmt2 = connection.prepareStatement(sql);
 				stmt2.setString(1, rs.getString("nomeo"));

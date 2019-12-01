@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -26,6 +27,7 @@ import javax.swing.table.TableColumn;
 
 import database.dao.CardapioDAO;
 import database.dao.OpcaoDAO;
+import database.models.Ingrediente;
 import database.models.Opcao;
 
 public class Cardapio extends JFrame {
@@ -41,6 +43,7 @@ public class Cardapio extends JFrame {
 	private Image image;
 	private Image newimg;
 	private JScrollPane painelCarrinho;
+	DefaultTableModel model1;
 
 	public Cardapio() {
 		cd = new CardapioDAO();
@@ -53,10 +56,6 @@ public class Cardapio extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(615, 22, 17, 369);
-		contentPane.add(scrollBar);
 
 		JScrollPane painelCardapio = new JScrollPane();
 		table1 = new JTable();
@@ -108,7 +107,7 @@ public class Cardapio extends JFrame {
 		}
 
 		painelCarrinho = new JScrollPane();
-		painelCarrinho.setBounds(427, 102, 178, 186);
+		painelCarrinho.setBounds(427, 102, 194, 186);
 		contentPane.add(painelCarrinho);
 
 		table = new JTable();
@@ -136,7 +135,12 @@ public class Cardapio extends JFrame {
 				if (verificaVazio()) {
 					JOptionPane.showMessageDialog(null, "Carrinho não pode estar vazio para continuar", "Erro", JOptionPane.DEFAULT_OPTION);
 				} else {
-					new Pagamento(preco).setVisible(true);
+					List<Opcao> opcoes = new ArrayList();
+					for (int i = 0; i < model1.getRowCount(); i++) {
+						Opcao o = od.consultar((String) model1.getValueAt(i, 0));
+						opcoes.add(o);
+					}
+					new Pagamento(opcoes).setVisible(true);
 					dispose();
 				}
 
@@ -147,7 +151,7 @@ public class Cardapio extends JFrame {
 		btnContinuar.setBackground(Color.GREEN);
 		btnContinuar.setFont(new Font("Arial", Font.BOLD, 16));
 
-		DefaultTableModel model1 = (DefaultTableModel) table.getModel();
+		model1 = (DefaultTableModel) table.getModel();
 
 		for (int i = 0; i < table.getColumnCount(); i++) {
 			DefaultTableColumnModel colModel = (DefaultTableColumnModel) table.getColumnModel();
@@ -164,11 +168,11 @@ public class Cardapio extends JFrame {
 			col.setPreferredWidth(width + 2);
 		}
 
-		JLabel labelPreco = new JLabel("R$ " + preco);
+		JLabel labelPreco = new JLabel("R$ " + String.format("%.2f", preco));
 		labelPreco.setHorizontalAlignment(SwingConstants.CENTER);
 		labelPreco.setFont(new Font("Arial", Font.BOLD, 16));
 		labelPreco.setBackground(Color.WHITE);
-		labelPreco.setBounds(486, 299, 119, 18);
+		labelPreco.setBounds(486, 299, 135, 18);
 		contentPane.add(labelPreco);
 
 		JButton btnAdd = new JButton("");
@@ -227,7 +231,7 @@ public class Cardapio extends JFrame {
 		img = new ImageIcon(newimg);
 		lblCarrinho.setIcon(img);
 
-		JLabel label2 = new JLabel("Total");
+		JLabel label2 = new JLabel("Total:");
 		label2.setHorizontalAlignment(SwingConstants.CENTER);
 		label2.setFont(new Font("Arial", Font.BOLD, 16));
 		label2.setBackground(Color.WHITE);
@@ -250,12 +254,12 @@ public class Cardapio extends JFrame {
 				rowData[0] = null;
 
 			rowData[1] = listCardapio.get(i).getNomeo();
-			rowData[2] = listCardapio.get(i).getPreco();
+			rowData[2] = String.format("%.2f",listCardapio.get(i).getPreco());
 			model.addRow(rowData);
 		}
 	}
 
 	public boolean verificaVazio() {
-		return table.getSelectedRow() < 0;
+		return table.getRowCount() <= 0;
 	}
 }

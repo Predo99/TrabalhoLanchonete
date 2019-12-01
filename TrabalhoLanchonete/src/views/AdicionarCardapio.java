@@ -37,19 +37,6 @@ public class AdicionarCardapio extends JFrame {
 	private JTextField textField;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 * 
-	 * @param funcionario
-	 */
-	/*
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { AdicionarCardapio frame = new
-	 * AdicionarCardapio(); frame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 * 
-	 * /** Create the frame.
-	 */
 	public AdicionarCardapio(Funcionario funcionario) {
 		setTitle("Adicionar Caardápio");
 		setResizable(false);
@@ -77,10 +64,6 @@ public class AdicionarCardapio extends JFrame {
 
 			private static final long serialVersionUID = 1L;
 
-			/*
-			 * @Override public Class<?> getColumnClass(int column) { if (column==0) return
-			 * ImageIcon.class; return Object.class; }
-			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				// all cells false
@@ -158,12 +141,6 @@ public class AdicionarCardapio extends JFrame {
 		List<Opcao> opcoes = od.consultar();
 		Object rowData[] = new Object[2];
 		for (int i = 0; i < opcoes.size(); i++) {
-			/*
-			 * if(opcoes.get(i).getImagem() != null) { ImageIcon img = new
-			 * ImageIcon(opcoes.get(i).getImagem()); Image image = img.getImage(); Image
-			 * newimg = image.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); img
-			 * = new ImageIcon(newimg); rowData[0] = img; }else rowData[0] = null;
-			 */
 			rowData[0] = opcoes.get(i).getNomeo();
 			rowData[1] = opcoes.get(i).getPreco();
 			model.addRow(rowData);

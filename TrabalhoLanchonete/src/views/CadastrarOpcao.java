@@ -47,19 +47,6 @@ public class CadastrarOpcao extends JFrame {
 	private String filename = null;
 	private DefaultListModel<Ingrediente> listModel;
 
-	/**
-	 * Launch the application.
-	 * 
-	 * @param funcionario
-	 */
-	/*
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { CadastrarOpcao frame = new
-	 * CadastrarOpcao(); frame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 * 
-	 * /** Create the frame.
-	 */
 	public CadastrarOpcao(Funcionario funcionario) {
 		setTitle("Cadastrar Opção");
 		setResizable(false);
@@ -104,12 +91,6 @@ public class CadastrarOpcao extends JFrame {
 		JButton btnImagem = new JButton("Buscar Imagem");
 		btnImagem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * JFileChooser jfile = new JFileChooser(); jfile.setCurrentDirectory(new
-				 * File(System.getProperty("user.home"))); FileNameExtensionFilter filter = new
-				 * FileNameExtensionFilter("*.Image", "jpg", "png");
-				 * jfile.addChoosableFileFilter(filter);
-				 */
 
 				JFileChooser fileChooser = null;
 				LookAndFeel previousLF = UIManager.getLookAndFeel();
@@ -182,7 +163,6 @@ public class CadastrarOpcao extends JFrame {
 				if (f != null) {
 					listModel.addElement(f);
 				}
-				// funcionarios = listModel.toArray();
 			}
 		});
 		btnProcurar.setBounds(403, 174, 94, 23);
@@ -256,7 +236,6 @@ public class CadastrarOpcao extends JFrame {
 					boolean cellHasFocus) {
 				Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				if (renderer instanceof JLabel && value instanceof Ingrediente) {
-					// Here value will be of the Type 'CD'
 					((JLabel) renderer).setText(((Ingrediente) value).getNomei());
 				}
 				return renderer;
@@ -326,12 +305,6 @@ public class CadastrarOpcao extends JFrame {
 		JButton btnImagem = new JButton("Buscar Imagem");
 		btnImagem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * JFileChooser jfile = new JFileChooser(); jfile.setCurrentDirectory(new
-				 * File(System.getProperty("user.home"))); FileNameExtensionFilter filter = new
-				 * FileNameExtensionFilter("*.Image", "jpg", "png");
-				 * jfile.addChoosableFileFilter(filter);
-				 */
 
 				JFileChooser fileChooser = null;
 				LookAndFeel previousLF = UIManager.getLookAndFeel();
@@ -403,7 +376,6 @@ public class CadastrarOpcao extends JFrame {
 				if (f != null) {
 					listModel.addElement(f);
 				}
-				// funcionarios = listModel.toArray();
 			}
 		});
 		btnProcurar.setBounds(403, 174, 94, 23);
@@ -436,7 +408,7 @@ public class CadastrarOpcao extends JFrame {
 						Opcao opcao = new Opcao(nome, preco, data, ingredientes);
 						OpcaoDAO od = new OpcaoDAO();
 
-						if (od.atualizar(opcao,aux.getNomeo())) {
+						if (od.atualizar(opcao, aux.getNomeo())) {
 							JOptionPane.showMessageDialog(null, "Opção Atualizada");
 							limparDados();
 							new GestaoOpcao(funcionario).setVisible(true);
@@ -480,7 +452,6 @@ public class CadastrarOpcao extends JFrame {
 					boolean cellHasFocus) {
 				Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				if (renderer instanceof JLabel && value instanceof Ingrediente) {
-					// Here value will be of the Type 'CD'
 					((JLabel) renderer).setText(((Ingrediente) value).getNomei());
 				}
 				return renderer;
@@ -506,7 +477,6 @@ public class CadastrarOpcao extends JFrame {
 				if (f != null) {
 					listModel.removeElement(f);
 				}
-				// funcionarios = listModel.toArray();
 			}
 		});
 		btnNewButton.setBounds(507, 174, 89, 23);

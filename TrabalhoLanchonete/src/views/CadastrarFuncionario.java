@@ -27,20 +27,7 @@ public class CadastrarFuncionario extends JFrame {
 	private JLabel lblGerente;
 	private JPasswordField passwordFuncionario;
 	private JTextField textSalario;
-
-	/**
-	 * Launch the application.
-	 * 
-	 * @param funcionario
-	 */
-	/*
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { CadastrarFuncionario frame = new
-	 * CadastrarFuncionario(); frame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 * 
-	 * /** Create the frame.
-	 */
+	
 	public CadastrarFuncionario(Funcionario funcionario) {
 		setTitle("Cadastro de Funcionários");
 		setResizable(false);

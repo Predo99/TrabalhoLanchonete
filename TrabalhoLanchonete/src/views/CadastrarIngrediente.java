@@ -25,20 +25,6 @@ public class CadastrarIngrediente extends JFrame {
 	private JTextField textField_Custo;
 	private JTextField textField_Quantidade;
 
-	/**
-	 * Launch the application.
-	 */
-	/*
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { CadastrarIngrediente frame = new
-	 * CadastrarIngrediente(); frame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 */
-	/**
-	 * Create the frame.
-	 * 
-	 * @wbp.parser.constructor
-	 */
 	public CadastrarIngrediente(Funcionario funcionario) {
 		setTitle("Cadastrar Ingredientes");
 		setResizable(false);
