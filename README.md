@@ -26,16 +26,16 @@ Sistema de lanchonete feito em Java para a disciplina de Engenharia de Software 
 >> * Importar o projeto <br>
 
 > **Passo 5** <br>
->> * Importar a biblioteca "mysql-connector-java-5.1.46-bin.jar" <br>
+>> * Importar a biblioteca "mysql-connector-java-5.1.6-bin.jar" <br>
 >> * Projeto -> Botão Direito -> Properties -> Java BuildPath -> Libraries -> Add External JARs... -> Selecionar .jar do "mysql-connector-java-5.1.6-bin.jar" <br>
 
 > **Conclusão** <br>
->> * A classe mainLogin no pacote main é responsável por executar a aplicação.<br>
-
+>> * A classe mainLogin no pacote main é responsável por executar a aplicação sob a visão dos funcionários.<br>
+>> * A classe mainCardapio no pacote main é responsável por executar a aplicação sob a visão do cliente.<br>
 
 ## Autores
 * **Arthur** - [germano-beep](https://github.com/germano-beep)
 * **Dione** 
 * **Gustavo Paiva** - [gpdutra](https://github.com/gpdutra)
 * **Igor Vitor Vieira** - [IgorVVieira](https://github.com/IgorVViera)
-* **Pedro** - [Pedro99](https://github.com/Predo99)
+* **Pedro** - [Predo99](https://github.com/Predo99)
