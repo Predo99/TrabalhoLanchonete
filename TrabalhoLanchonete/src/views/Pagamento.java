@@ -176,8 +176,10 @@ public class Pagamento extends JFrame {
 				pedido.setOpcoes(opcoes);
 				pedido.setPreco(pedido.getPrecoBanco());
 				
-				if(!respBoxPagamento.equals("Dinheiro") && textNumCartao.getText().equals("") && textNumCartao.getText().length() != 16)
+				if(!respBoxPagamento.equals("Dinheiro") && textNumCartao.getText().equals(""))
 					JOptionPane.showMessageDialog(null, "Digite o número do cartão para continuar.");
+				else if(!respBoxPagamento.equals("Dinheiro") && textNumCartao.getText().length() != 16)
+					JOptionPane.showMessageDialog(null, "Digite um número de cartão válido (16 dígitos).");
 				else {
 					if(respBoxPagamento.equals("Dinheiro"))
 						pedido.setNumCard(null);

@@ -1,16 +1,17 @@
 -- create schema lanchonete;
 use lanchonete;
 
--- drop table funcionario;
--- drop table complementos;
--- drop table remocoes;
--- drop table opcoes_pedido;
--- drop table opcoes_cardapio;
--- drop table cardapio;
--- drop table pedido;
--- drop table ingredientes_opcao;
--- drop table opcao;
--- drop table ingrediente;
+drop table funcionario;
+drop table complementos;
+drop table remocoes;
+drop table opcoes_pedido;
+drop table opcoes_cardapio;
+drop table cardapio;
+drop table pedido;
+drop table ingredientes_opcao;
+drop table opcao;
+drop table ingrediente;
+
 
 create table funcionario
 (
@@ -120,35 +121,113 @@ insert into funcionario values
 
 insert into ingrediente values 
 ('Alface', 40, 1.5),
-('Batata', 200, 3.5),
-('Bife de hamburguer', 100, 7),
+('Bacon', 80, 2),
+('Batata Frita',95, 4.8),
+('Batata Palha', 50, 1.5),
+('Bife de hamburguer', 100, 6),
+('Calabresa',80, 1.8),
+('Cereja', 40, 0.5),
+('Cheddar', 52, 3.8),
 ('Chocolate', 50, 5),
+('Granulado', 35, 1.1),
+('Lata de Refrigerante', 100, 4.7),
 ('Leite', 300, 3.29),
-('Queijo', 150, 3),
+('Massa', 55,5),
+('Milho',30,0.35),
+('Molho', 42, 2.7),
+('Ovo', 40,1),
+('Ovomaltine', 55, 2.15),
 ('Pão de hamburguer', 150, 5),
-('Tomate', 50, 4.5),
-('Bacon', 100, 2),
-('Ovo', 80, 2);
+('Pão Hot Dog', 85, 2.5),
+('Pepperoni', 60,3.5),
+('Queijo Ralado', 150, 2),
+('Salsicha',85, 2),
+('Tomate', 75,0.8);
 
 insert into opcao values 
-('Batata frita', 3.5, null),
-('Hamburguer simples',7.5, null),
+('Batata Frita com Molho', 6.5, null),
+('Cachorro Quente', 5.5, null),
+('Fritas com Cheddar e Bacon', 10, null),
+('Hamburguer Simples',7.5, null),
 ('Milkshake', 5.5, null),
+('Pizza Calabresa', 28, null),
+('Pizza Pepperoni',32, null),
+('X-Bacon', 10, null),
+('X-EggBacon', 13.5, null),
+('X-Tudo', 16.5, null),
 ('Refrigerante', 3, null);
 
-insert into ingredientes_opcao (nomei, nomeo) values
-('Bife de hamburguer', 'Hamburguer simples'),
-('Pão de hamburguer', 'Hamburguer simples'),
-('Tomate', 'Hamburguer simples'),
-('Alface', 'Hamburguer simples'),
-('Queijo', 'Hamburguer simples'),
-('Batata', 'Batata frita'),
+SET FOREIGN_KEY_CHECKS=0;
+
+insert into ingredientes_opcao (nomei,nomeo) values
+('Alface', 'Hamburguer Simples'),
+('Bife de Hamburguer', 'Hamburguer Simples'),
+('Milho', 'Hamburguer Simples'),
+('Pão de hamburguer', 'Hamburguer Simples'),
+('Tomate', 'Hamburguer Simples'),
+('Pão Hot Dog', 'Cachorro Quente'),
+('Salsicha', 'Cachorro Quente'),
+('Batata Palha', 'Cachorro Quente'),
+('Milho', 'Cachorro Quente'),
+('Tomate', 'Cachorro Quente'),
+('Lata de Refrigerante', 'Refrigerante'),
+('Pão de hamburguer', 'X-Bacon'),
+('Bife de Hamburguer', 'X-Bacon'),
+('Alface', 'X-Bacon'),
+('Bacon', 'X-Bacon'),
+('Batata Palha', 'X-Bacon'),
+('Tomate', 'X-Bacon'),
+('Massa', 'Pizza Calabresa'),
+('Calabresa', 'Pizza Calabresa'),
+('Molho', 'Pizza Calabresa'),
+('Tomate', 'Pizza Calabresa'),
+('Milho', 'Pizza Calabresa'),
+('Queijo Ralado', 'Pizza Calabresa'),
+('Massa', 'Pizza Pepperoni'),
+('Molho', 'Pizza Pepperoni'),
+('Pepperoni', 'Pizza Pepperoni'),
+('Queijo Ralado', 'Pizza Pepperoni'),
+('Ovo', 'Pizza Pepperoni'),
+('Milho', 'Pizza Pepperoni'),
+('Tomate', 'Pizza Pepperoni'),
+('Pão de hamburguer', 'X-EggBacon'),
+('Alface', 'X-EggBacon'),
+('Bacon', 'X-EggBacon'),
+('Ovo', 'X-EggBacon'),
+('Batata Palha', 'X-EggBacon'),
+('Tomate', 'X-EggBacon'),
+('Bife de Hamburguer', 'X-EggBacon'),
+('Batata Frita', 'Batata Frita com Molho'),
+('Molho', 'Batata Frita com Molho'),
+('Cheddar', 'Fritas com Cheddar e Bacon'),
+('Batata Frita', 'Fritas com Cheddar e Bacon'),
+('Bacon', 'Fritas com Cheddar e Bacon'),
+('Pão de hamburguer', 'X-Tudo'),
+('Bife de Hamburguer', 'X-Tudo'),
+('Alface', 'X-Tudo'),
+('Tomate', 'X-Tudo'),
+('Ovo', 'X-Tudo'),
+('Bacon', 'X-Tudo'),
+('Cheddar', 'X-Tudo'),
+('Queijo Ralado', 'X-Tudo'),
+('Milho', 'X-Tudo'),
 ('Leite', 'Milkshake'),
-('Chocolate','Milkshake');
+('Chocolate', 'Milkshake'),
+('Ovomaltine', 'Milkshake'),
+('Cereja', 'Milkshake');
 
 insert into opcoes_cardapio (codigoc, nomeo) values
-(1, 'Batata frita'),
-(1, 'Hamburguer simples'),
+(1, 'Batata Frita com Molho'),
+(1, 'Cachorro Quente'),
+(1, 'Fritas com Cheddar e Bacon'),
+(1, 'Hamburguer Simples'),
+(1, 'Lata de Refrigerante'),
 (1, 'Milkshake'),
-(1, 'Refrigerante');
+(1, 'Pizza Calabresa'),
+(1, 'Pizza Pepperoni'),
+(1, 'X-Bacon'),
+(1, 'X-EggBacon'),
+(1, 'X-Tudo');
+
+SET FOREIGN_KEY_CHECKS=1;
 

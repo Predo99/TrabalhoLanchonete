@@ -17,18 +17,39 @@ public class mainCardapio {
 	public static void main(String[] args) throws IOException {
 		OpcaoDAO od = new OpcaoDAO();
 		List<Opcao> opcoes = od.consultar();
-		if(opcoes.size() > 0) {
-			byte[] data = converter("/batataFrita.jpg");
-			od.atualizar("Batata frita", data);
+		if(opcoes.size() > 0  && opcoes.get(0).getImagem() == null) {
+			byte[] data = converter("/batatamolho.jpg");
+			od.atualizar("Batata Frita com Molho", data);
 			
-			data = converter("/HamburgerSimples.png");
-			od.atualizar("Hamburguer simples", data);
+			data = converter("/batatacheddarbacon.jpg");
+			od.atualizar("Fritas com Cheddar e Bacon", data);
 			
-			data = converter("/milkShake2.jpg");
+			data = converter("/HamburguerSimples.jpg");
+			od.atualizar("Hamburguer Simples", data);
+			
+			data = converter("/milkshake.jpg");
 			od.atualizar("Milkshake", data);
 			
 			data = converter("/refrigerantes350.jpg");
 			od.atualizar("Refrigerante", data);
+			
+			data = converter("/hotdog.jpg");
+			od.atualizar("Cachorro Quente", data);
+			
+			data = converter("/img_pizza_calabresa.jpg");
+			od.atualizar("Pizza Calabresa", data);
+			
+			data = converter("/pizzapepperoni.jpg");
+			od.atualizar("Pizza Pepperoni", data);
+			
+			data = converter("/xbacon.jpg");
+			od.atualizar("X-Bacon", data);
+			
+			data = converter("/xeggbacon.jpg");
+			od.atualizar("X-EggBacon", data);
+			
+			data = converter("/x-tudo.jpg");
+			od.atualizar("X-Tudo", data);
 		}
 		
 		EventQueue.invokeLater(new Runnable() {

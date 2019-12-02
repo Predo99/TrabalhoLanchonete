@@ -227,7 +227,7 @@ public class CadastrarOpcao extends JFrame {
 
 		JList<Ingrediente> list_1 = new JList<Ingrediente>(listModel);
 		list_1.setBounds(284, 208, 146, 62);
-		contentPane.add(list_1);
+		scrollPane.setViewportView(list_1);
 		list_1.setCellRenderer(new DefaultListCellRenderer() {
 			private static final long serialVersionUID = 1L;
 

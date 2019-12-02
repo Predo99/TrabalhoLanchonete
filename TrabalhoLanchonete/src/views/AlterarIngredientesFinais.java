@@ -159,6 +159,11 @@ public class AlterarIngredientesFinais extends JFrame {
 		btnVoltar.setBackground(Color.YELLOW);
 		btnVoltar.setBounds(345, 231, 109, 28);
 		contentPane.add(btnVoltar);
+		
+		JLabel lblDigiteONome = new JLabel("Digite o nome de um ingrediente para adicionar ou remover");
+		lblDigiteONome.setFont(new Font("Arial", Font.BOLD, 16));
+		lblDigiteONome.setBounds(36, 31, 464, 20);
+		contentPane.add(lblDigiteONome);
 	}
 
 	public void limparDados() {
